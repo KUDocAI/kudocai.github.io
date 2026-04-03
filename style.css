@@ -2,10 +2,10 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --primary: #1a0a0f;
-  --accent: #9b1b30;
-  --accent-light: #fbeaec;
-  --accent-mid: #c0394f;
+  --primary: #1a0808;
+  --accent: #8c1515;
+  --accent-light: #f9ecec;
+  --accent-mid: #b03030;
   --text: #1f2937;
   --text-muted: #6b7280;
   --border: #e5e7eb;
@@ -111,7 +111,7 @@ section { padding: 5rem 1.5rem; }
 .hero {
   padding-top: 7rem;
   padding-bottom: 5rem;
-  background: linear-gradient(135deg, #fff5f6 0%, #ffffff 55%);
+  background: linear-gradient(135deg, #f9ecec 0%, #ffffff 55%);
   border-bottom: 1px solid var(--border);
 }
 .hero-inner {
@@ -294,8 +294,8 @@ section { padding: 5rem 1.5rem; }
   padding: 0.1rem 0.45rem;
   margin-bottom: 0.35rem;
 }
-.team-role.role-pi { background: #1a0a0f; color: #fff; }
-.team-role.role-prof { background: #2d1016; color: #f9a8b4; }
+.team-role.role-pi { background: #8c1515; color: #fff; }
+.team-role.role-prof { background: #5a0d0d; color: #f9c9c9; }
 .team-role.role-lead { background: var(--accent); color: #fff; }
 .team-links { display: flex; gap: 0.55rem; margin-top: 0.4rem; flex-wrap: wrap; }
 .team-links a {
@@ -319,7 +319,7 @@ section { padding: 5rem 1.5rem; }
   align-items: center;
   gap: 1.5rem;
   padding: 1.5rem 1.8rem;
-  background: linear-gradient(135deg, #fff5f6 0%, #ffffff 100%);
+  background: linear-gradient(135deg, #f9ecec 0%, #ffffff 100%);
   border-color: var(--accent);
 }
 .team-card-pi .team-avatar-placeholder {
