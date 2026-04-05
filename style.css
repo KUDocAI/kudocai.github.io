@@ -292,8 +292,8 @@ section { padding: 6rem 2rem; }
 .team-card:hover { background: var(--bg-white); box-shadow: var(--shadow-md); }
 
 .team-avatar {
-  width: 80px;
-  height: 80px;
+  width: 130px;
+  height: 130px;
   border-radius: 50%;
   object-fit: cover;
   object-position: center top;
@@ -302,13 +302,13 @@ section { padding: 6rem 2rem; }
   background: var(--cream-dark);
 }
 .team-card-pi .team-avatar {
-  width: 100px;
-  height: 100px;
+  width: 150px;
+  height: 150px;
 }
 
 .team-avatar-placeholder {
-  width: 80px;
-  height: 80px;
+  width: 130px;
+  height: 130px;
   border-radius: 50%;
   background: var(--cream-dark);
   display: flex;
@@ -377,8 +377,8 @@ section { padding: 6rem 2rem; }
   border-color: var(--border-strong);
 }
 .team-card-pi .team-avatar-placeholder {
-  width: 100px;
-  height: 100px;
+  width: 150px;
+  height: 150px;
   font-size: 1.1rem;
 }
 .team-card-pi .team-name { font-size: 1.1rem; }
