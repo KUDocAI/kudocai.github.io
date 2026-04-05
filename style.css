@@ -291,6 +291,20 @@ section { padding: 6rem 2rem; }
 }
 .team-card:hover { background: var(--bg-white); box-shadow: var(--shadow-md); }
 
+.team-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: top;
+  flex-shrink: 0;
+  border: 1px solid var(--border);
+}
+.team-card-pi .team-avatar {
+  width: 64px;
+  height: 64px;
+}
+
 .team-avatar-placeholder {
   width: 48px;
   height: 48px;
