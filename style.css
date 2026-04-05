@@ -164,6 +164,10 @@ section { padding: 6rem 2rem; }
   margin-bottom: 1.6rem;
   max-width: 760px;
 }
+.hero-ku {
+  color: var(--accent);
+  font-style: normal;
+}
 .hero-inner h1 em {
   font-style: italic;
   color: var(--accent);
@@ -351,6 +355,7 @@ section { padding: 6rem 2rem; }
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
+  white-space: nowrap;
   background: var(--cream-dark);
   color: var(--text-muted);
   border-radius: 3px;
