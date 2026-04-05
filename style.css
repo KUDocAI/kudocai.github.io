@@ -170,7 +170,7 @@ section { padding: 6rem 2rem; }
 }
 .hero-inner h1 em {
   font-style: italic;
-  color: var(--accent);
+  color: var(--primary);
 }
 
 .hero-subtitle {
@@ -289,7 +289,7 @@ section { padding: 6rem 2rem; }
   margin-bottom: 0.5rem;
 }
 .team-grid.team-grid--wide {
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
 }
 .team-card {
   background: var(--bg-card);
