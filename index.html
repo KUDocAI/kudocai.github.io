@@ -159,12 +159,13 @@
       <div class="team-card">
         <div class="team-avatar-placeholder">JS</div>
         <div class="team-info">
-          <div class="team-role role-prof">Professor</div>
+          <div class="team-role role-prof">Assistant Professor</div>
           <div class="team-name">Jaehyung Seo</div>
-          <div class="team-name-ko">서재형</div>
-          <div class="team-affil">Korea University NLP&amp;AI Lab</div>
+          <div class="team-affil">Konkuk University · ELION Lab<br/>Ph.D. Korea University NLP&amp;AI Lab</div>
           <div class="team-links">
-            <a href="https://scholar.google.com/citations?user=jaehyungseo" target="_blank">Scholar</a>
+            <a href="https://j-seo.github.io/" target="_blank">Website</a>
+            <a href="https://scholar.google.com/citations?user=V8bFAUIAAAAJ" target="_blank">Scholar</a>
+            <a href="https://github.com/J-Seo" target="_blank">GitHub</a>
           </div>
         </div>
       </div>
@@ -172,12 +173,13 @@
       <div class="team-card">
         <div class="team-avatar-placeholder">CP</div>
         <div class="team-info">
-          <div class="team-role role-prof">Professor</div>
+          <div class="team-role role-prof">Assistant Professor</div>
           <div class="team-name">Chanjun Park</div>
           <div class="team-name-ko">박찬준</div>
-          <div class="team-affil">Korea University NLP&amp;AI Lab</div>
+          <div class="team-affil">Soongsil University · NLP Lab<br/>Ph.D. Korea University NLP&amp;AI Lab</div>
           <div class="team-links">
-            <a href="https://scholar.google.com/citations?user=chanjunpark" target="_blank">Scholar</a>
+            <a href="https://parkchanjun.github.io/" target="_blank">Website</a>
+            <a href="https://scholar.google.com/citations?user=085jNAMAAAAJ" target="_blank">Scholar</a>
           </div>
         </div>
       </div>
@@ -193,10 +195,12 @@
         <div class="team-info">
           <div class="team-role role-lead">Team Lead</div>
           <div class="team-name">Joongmin Shin</div>
-          <div class="team-name-ko">신중민</div>
-          <div class="team-affil">M.S. · Korea University NLP&amp;AI Lab</div>
+          <div class="team-affil">Multimodal AI Researcher · Korea University NLP&amp;AI Lab</div>
           <div class="team-links">
-            <a href="https://github.com/joongminshin" target="_blank">GitHub</a>
+            <a href="https://shinjm-maker.github.io/" target="_blank">Website</a>
+            <a href="https://scholar.google.com/citations?user=KKzAjXAAAAAJ" target="_blank">Scholar</a>
+            <a href="https://github.com/shinjm-maker" target="_blank">GitHub</a>
+            <a href="https://www.linkedin.com/in/shinjm-maker" target="_blank">LinkedIn</a>
           </div>
         </div>
       </div>
@@ -239,40 +243,54 @@
     <h2 class="section-title">Publications</h2>
     <div class="pub-list">
 
-      <!-- Placeholder — replace with real papers -->
       <div class="pub-card">
-        <span class="pub-venue venue-acl">ACL 2025</span>
+        <span class="pub-venue venue-cvpr">CVPR 2026</span>
         <div class="pub-title">
-          [Representative paper title — to be filled in]
+          M3DocDep: Multi-modal, Multi-page, Multi-document Dependency Chunking with Large Vision-Language Models
         </div>
         <div class="pub-authors">
-          <strong>Joongmin Shin</strong>, <strong>Gyuho Shim</strong>, Duong Tuan Thanh,
-          Jaehyung Seo, Chanjun Park, Heuiseok Lim
+          <strong>Joongmin Shin</strong>*, Jeongbae Park, Jaehyung Seo, Heuiseok Lim
         </div>
         <div class="pub-desc">
-          Short description of the paper's contribution and key results.
+          Introduces a dependency-aware chunking framework that leverages LVLMs to capture structural
+          and semantic dependencies across multiple pages and documents for improved retrieval.
         </div>
         <div class="pub-links">
-          <a href="#">[Paper]</a>
-          <a href="#">[Code]</a>
+          <a href="https://shinjm-maker.github.io/publications/m3docdep.html" target="_blank">Paper</a>
         </div>
       </div>
 
       <div class="pub-card">
-        <span class="pub-venue venue-arxiv">arXiv</span>
+        <span class="pub-venue venue-emnlp">EMNLP 2025</span>
         <div class="pub-title">
-          [Preprint title — to be filled in]
+          MultiDocFusion: Hierarchical and Multimodal Chunking Pipeline for Enhanced RAG on Long Industrial Documents
         </div>
         <div class="pub-authors">
-          <strong>Gyuho Shim</strong>, <strong>Joongmin Shin</strong>,
-          Chanjun Park, Heuiseok Lim
+          <strong>Joongmin Shin</strong>*, Chanjun Park, Jeongbae Park, Jaehyung Seo, Heuiseok Lim
         </div>
         <div class="pub-desc">
-          Short description of the preprint's contribution and key results.
+          Proposes a hierarchical multimodal chunking pipeline that integrates text, layout, and visual
+          signals to boost RAG performance on long, complex industrial documents.
         </div>
         <div class="pub-links">
-          <a href="#">[arXiv]</a>
-          <a href="#">[Code]</a>
+          <a href="https://shinjm-maker.github.io/publications/multidocfusion.html" target="_blank">Paper</a>
+        </div>
+      </div>
+
+      <div class="pub-card">
+        <span class="pub-venue venue-emnlp">EMNLP 2024 Industry</span>
+        <div class="pub-title">
+          Intelligent Predictive Maintenance RAG Framework for Power Plants: Enhancing QA with StyleDFS and Domain-Specific Instruction Tuning
+        </div>
+        <div class="pub-authors">
+          Seongtae Hong*, <strong>Joongmin Shin</strong>*, Jaehyung Seo, Taemin Lee, Jeongbae Park, Heuiseok Lim
+        </div>
+        <div class="pub-desc">
+          Presents a domain-specific RAG system for power plant maintenance QA, combining StyleDFS retrieval
+          and instruction-tuned generation for industrial deployment.
+        </div>
+        <div class="pub-links">
+          <a href="https://shinjm-maker.github.io/publications/styledfs.html" target="_blank">Paper</a>
         </div>
       </div>
 

@@ -392,6 +392,7 @@ section { padding: 6rem 2rem; }
 .venue-acl    { background: #dbeafe; color: #1d4ed8; }
 .venue-emnlp  { background: #d1fae5; color: #065f46; }
 .venue-naacl  { background: #e0e7ff; color: #3730a3; }
+.venue-cvpr   { background: #fce7f3; color: #9d174d; }
 .venue-arxiv  { background: #fef3c7; color: #92400e; }
 .venue-coling { background: #f3e8ff; color: #6b21a8; }
 .venue-other  { background: var(--cream-dark); color: var(--text-muted); }
