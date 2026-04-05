@@ -284,6 +284,9 @@ section { padding: 6rem 2rem; }
   gap: 1rem;
   margin-bottom: 0.5rem;
 }
+.team-grid.team-grid--wide {
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
 .team-card {
   background: var(--bg-card);
   border: 1px solid var(--border);
