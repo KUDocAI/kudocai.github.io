@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>KUDoc — Korea University Document AI</title>
   <meta name="description" content="KUDoc is the Document AI research team at Korea University NLP&AI Lab, led by Prof. Heuiseok Lim." />
-  <link rel="stylesheet" href="style.css?v=4" />
+  <link rel="stylesheet" href="style.css?v=5" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,600;1,8..60,700&display=swap" rel="stylesheet" />
@@ -81,9 +81,10 @@
     <!-- Right: timeline -->
     <div class="hero-timeline">
       <div class="timeline-heading">Milestones</div>
-      <div class="timeline">
+      <div class="timeline" id="milestoneTimeline">
+        <div class="tl-track"><div class="tl-fill" id="tlFill"></div></div>
 
-        <div class="tl-item">
+        <div class="tl-item" tabindex="0">
           <div class="tl-date">2024.03</div>
           <div class="tl-dot"></div>
           <div class="tl-body">
@@ -92,7 +93,7 @@
           </div>
         </div>
 
-        <div class="tl-item">
+        <div class="tl-item" tabindex="0">
           <div class="tl-date">2024.11</div>
           <div class="tl-dot"></div>
           <div class="tl-body">
@@ -101,7 +102,7 @@
           </div>
         </div>
 
-        <div class="tl-item">
+        <div class="tl-item" tabindex="0">
           <div class="tl-date">2025.11</div>
           <div class="tl-dot"></div>
           <div class="tl-body">
@@ -110,7 +111,7 @@
           </div>
         </div>
 
-        <div class="tl-item tl-item--active">
+        <div class="tl-item tl-item--active" tabindex="0">
           <div class="tl-date">2026.06</div>
           <div class="tl-dot"></div>
           <div class="tl-body">
@@ -427,6 +428,57 @@
   const navbar = document.getElementById('navbar');
   window.addEventListener('scroll', () => {
     navbar.classList.toggle('scrolled', window.scrollY > 10);
+  });
+
+  // ── Timeline interactivity ──────────────────────────────────────────
+  const timeline = document.getElementById('milestoneTimeline');
+  const fill     = document.getElementById('tlFill');
+  const items    = Array.from(timeline.querySelectorAll('.tl-item'));
+
+  function setActive(target) {
+    items.forEach(el => el.classList.remove('tl-item--active'));
+    target.classList.add('tl-item--active');
+    updateFill(target);
+  }
+
+  function updateFill(activeItem) {
+    const dot        = activeItem.querySelector('.tl-dot');
+    const trackTop   = timeline.querySelector('.tl-track').getBoundingClientRect().top;
+    const dotCenter  = dot.getBoundingClientRect().top + dot.offsetHeight / 2;
+    const height     = dotCenter - trackTop;
+    fill.style.height = Math.max(0, height) + 'px';
+  }
+
+  // Click & keyboard activation
+  items.forEach(item => {
+    item.addEventListener('click', () => setActive(item));
+    item.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setActive(item); }
+    });
+  });
+
+  // Staggered entrance via IntersectionObserver
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        items.forEach((el, i) => {
+          setTimeout(() => el.classList.add('tl-item--visible'), i * 120);
+        });
+        // Init fill after items are visible
+        setTimeout(() => {
+          const active = timeline.querySelector('.tl-item--active');
+          if (active) updateFill(active);
+        }, items.length * 120 + 200);
+        observer.disconnect();
+      }
+    });
+  }, { threshold: 0.2 });
+  observer.observe(timeline);
+
+  // Recalculate fill on resize
+  window.addEventListener('resize', () => {
+    const active = timeline.querySelector('.tl-item--active');
+    if (active) updateFill(active);
   });
 </script>
 
