@@ -574,8 +574,8 @@ section { padding: 6rem 2rem; }
   grid-column: 1 / -1;
   padding: 1.8rem 2rem;
   gap: 1.5rem;
-  background: var(--bg-white);
-  border-color: var(--border-strong);
+  background: var(--bg-card);
+  border-color: var(--border);
 }
 .team-card-pi .team-avatar-placeholder {
   width: 150px;
