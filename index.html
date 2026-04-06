@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>KUDoc — Korea University Document AI</title>
   <meta name="description" content="KUDoc is the Document AI research team at Korea University NLP&AI Lab, led by Prof. Heuiseok Lim." />
-  <link rel="stylesheet" href="style.css?v=6" />
+  <link rel="stylesheet" href="style.css?v=7" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,600;1,8..60,700&display=swap" rel="stylesheet" />
@@ -84,40 +84,64 @@
       <div class="timeline" id="milestoneTimeline">
         <div class="tl-track"><div class="tl-fill" id="tlFill"></div></div>
 
+        <!-- child 2: even → LEFT -->
         <div class="tl-item" tabindex="0">
-          <div class="tl-date">2024.03</div>
-          <div class="tl-dot"></div>
           <div class="tl-body">
+            <div class="tl-date">2024.03</div>
             <div class="tl-title">Synapse</div>
-            <div class="tl-desc">KUDoc team founded — Document AI research begins.</div>
+            <div class="tl-desc">KUDoc founded — multilingual medical AI consultation.</div>
           </div>
+          <div class="tl-dot"></div>
         </div>
 
+        <!-- child 3: odd → RIGHT -->
         <div class="tl-item" tabindex="0">
-          <div class="tl-date">2024.11</div>
-          <div class="tl-dot"></div>
           <div class="tl-body">
+            <div class="tl-date">2024.11</div>
             <div class="tl-title">EMNLP 2024</div>
             <div class="tl-desc">StyleDFS — Predictive Maintenance RAG for Power Plants.</div>
           </div>
+          <div class="tl-dot"></div>
         </div>
 
+        <!-- child 4: even → LEFT -->
         <div class="tl-item" tabindex="0">
-          <div class="tl-date">2025.11</div>
-          <div class="tl-dot"></div>
           <div class="tl-body">
+            <div class="tl-date">2025.01</div>
+            <div class="tl-title">DocGraph Copilot</div>
+            <div class="tl-desc">Multimodal chunking for industrial documents.</div>
+          </div>
+          <div class="tl-dot"></div>
+        </div>
+
+        <!-- child 5: odd → RIGHT -->
+        <div class="tl-item" tabindex="0">
+          <div class="tl-body">
+            <div class="tl-date">2025.05</div>
+            <div class="tl-title">REVISE · ACL 2025</div>
+            <div class="tl-desc">OCR error correction via data contamination strategy.</div>
+          </div>
+          <div class="tl-dot"></div>
+        </div>
+
+        <!-- child 6: even → LEFT -->
+        <div class="tl-item" tabindex="0">
+          <div class="tl-body">
+            <div class="tl-date">2025.11</div>
             <div class="tl-title">EMNLP 2025</div>
             <div class="tl-desc">MultiDocFusion — Hierarchical multimodal chunking pipeline.</div>
           </div>
+          <div class="tl-dot"></div>
         </div>
 
+        <!-- child 7: odd → RIGHT (active) -->
         <div class="tl-item tl-item--active" tabindex="0">
-          <div class="tl-date">2026.06</div>
-          <div class="tl-dot"></div>
           <div class="tl-body">
+            <div class="tl-date">2026.06</div>
             <div class="tl-title">CVPR 2026</div>
             <div class="tl-desc">M3DocDep — Multi-document dependency chunking with LVLMs.</div>
           </div>
+          <div class="tl-dot"></div>
         </div>
 
       </div>
@@ -461,11 +485,11 @@
   }
 
   function updateFill(activeItem) {
-    const dot        = activeItem.querySelector('.tl-dot');
-    const trackTop   = timeline.querySelector('.tl-track').getBoundingClientRect().top;
-    const dotCenter  = dot.getBoundingClientRect().top + dot.offsetHeight / 2;
-    const height     = dotCenter - trackTop;
-    fill.style.height = Math.max(0, height) + 'px';
+    const dot       = activeItem.querySelector('.tl-dot');
+    const track     = timeline.querySelector('.tl-track');
+    const trackTop  = track.getBoundingClientRect().top;
+    const dotCenter = dot.getBoundingClientRect().top + dot.offsetHeight / 2;
+    fill.style.height = Math.max(0, dotCenter - trackTop) + 'px';
   }
 
   // Click & keyboard activation
