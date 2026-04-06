@@ -100,6 +100,7 @@ a:hover { text-decoration: underline; }
   letter-spacing: 0.01em;
 }
 .nav-links a:hover { color: var(--primary); text-decoration: none; }
+.nav-active { color: var(--accent) !important; font-weight: 600 !important; }
 
 /* ===== SECTIONS ===== */
 section { padding: 6rem 2rem; }
@@ -460,6 +461,13 @@ section { padding: 6rem 2rem; }
   border-bottom: 1px solid var(--border);
 }
 .team-section-label:first-of-type { margin-top: 0; }
+.team-faculty-link {
+  margin-top: 1.5rem;
+  font-size: 0.88rem;
+  font-weight: 500;
+}
+.team-faculty-link a { color: var(--accent); }
+
 .team-section-label--primary {
   font-size: 0.8rem;
   color: var(--accent);
