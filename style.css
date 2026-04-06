@@ -460,6 +460,12 @@ section { padding: 6rem 2rem; }
   border-bottom: 1px solid var(--border);
 }
 .team-section-label:first-of-type { margin-top: 0; }
+.team-section-label--primary {
+  font-size: 0.8rem;
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+  border-bottom-width: 2px;
+}
 
 .team-grid {
   display: grid;
