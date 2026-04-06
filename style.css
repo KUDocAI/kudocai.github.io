@@ -145,14 +145,17 @@ section { padding: 6rem 2rem; }
 /* ===== TIMELINE ===== */
 .hero-timeline { padding-top: 0.4rem; }
 
-.timeline-heading {
+.timeline-heading { margin-bottom: 1.2rem; }
+
+.tl-col-labels {
+  display: flex;
+  justify-content: space-between;
   font-family: 'Inter', sans-serif;
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--text-muted);
-  margin-bottom: 1.5rem;
 }
 
 .timeline {
@@ -204,23 +207,23 @@ section { padding: 6rem 2rem; }
 .tl-item:hover { background: rgba(20,20,19,0.04); }
 .tl-item:focus { outline: none; background: rgba(20,20,19,0.04); }
 
-/* ── Even children (1st, 3rd, 5th item): body LEFT, dot CENTER ── */
-.tl-item:nth-child(even) .tl-body {
+/* ── Left items (projects): body LEFT, dot CENTER ── */
+.tl-item.tl-left .tl-body {
   grid-column: 1;
   grid-row: 1;
   text-align: right;
 }
-.tl-item:nth-child(even) .tl-dot {
+.tl-item.tl-left .tl-dot {
   grid-column: 2;
   grid-row: 1;
 }
 
-/* ── Odd children (2nd, 4th, 6th item): dot CENTER, body RIGHT ── */
-.tl-item:nth-child(odd) .tl-dot {
+/* ── Right items (papers): dot CENTER, body RIGHT ── */
+.tl-item.tl-right .tl-dot {
   grid-column: 2;
   grid-row: 1;
 }
-.tl-item:nth-child(odd) .tl-body {
+.tl-item.tl-right .tl-body {
   grid-column: 3;
   grid-row: 1;
   text-align: left;
