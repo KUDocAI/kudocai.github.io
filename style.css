@@ -156,15 +156,10 @@ section { padding: 6rem 2rem; }
   margin-bottom: 0.5rem;
 }
 
-.tl-col-labels {
-  display: flex;
-  justify-content: space-between;
-  font-family: 'Inter', sans-serif;
-  font-size: 0.65rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--text-muted);
+.tl-icon {
+  font-size: 0.7rem;
+  vertical-align: middle;
+  opacity: 0.75;
 }
 
 .timeline {
