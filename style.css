@@ -651,6 +651,17 @@ section { padding: 6rem 2rem; }
   padding-bottom: 0.4rem;
   border-bottom: 1px solid var(--border);
 }
+.pub-subsubsection-label {
+  font-size: 0.67rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 1rem 0 0.6rem;
+  padding-left: 0.6rem;
+  border-left: 2px solid var(--accent);
+}
+.venue-domestic { background: #fef9ec; color: #92620a; }
 
 /* ===== PUBLICATIONS ===== */
 .pub-list { display: flex; flex-direction: column; gap: 0; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
