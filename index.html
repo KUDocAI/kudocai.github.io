@@ -224,7 +224,10 @@
       <div class="team-card">
         <img class="team-avatar" src="https://shinjm-maker.github.io/profile_picture.png" alt="Joongmin Shin" />
         <div class="team-info">
-          <div class="team-role role-lead">Team Lead</div>
+          <div class="team-role-group">
+            <div class="team-role role-lead">Team Lead</div>
+            <div class="team-role role-founder">Founder</div>
+          </div>
           <div class="team-name">Joongmin Shin</div>
           <div class="team-affil">Multimodal AI Researcher · Human-Inspired AI Research</div>
           <div class="team-links">
@@ -239,7 +242,10 @@
       <div class="team-card">
         <img class="team-avatar" src="https://avatars.githubusercontent.com/u/76989110?v=4" alt="Gyuho Shim" />
         <div class="team-info">
-          <div class="team-role role-lead">Co-Lead</div>
+          <div class="team-role-group">
+            <div class="team-role role-lead">Co-Lead</div>
+            <div class="team-role role-founder">Co-Founder</div>
+          </div>
           <div class="team-name">Gyuho Shim</div>
           <div class="team-name-ko">심규호</div>
           <div class="team-affil">M.S. · Korea University NLP&amp;AI Lab</div>
@@ -309,25 +315,25 @@
     <div class="pub-list">
 
       <div class="pub-card">
-        <span class="pub-venue venue-acl">ACL 2025 · Oral</span>
+        <span class="pub-venue venue-acl">ACL 2026 MAIN</span>
         <div class="pub-title">
-          REVISE: A Framework for Revising OCRed Text in Practical Information Systems with Data Contamination Strategy
+          HiKEY: Hierarchical Multimodal Retrieval for Open-Domain Document Question Answering
         </div>
         <div class="pub-authors">
-          <strong>Gyuho Shim</strong>, Seongtae Hong, Heuiseok Lim
+          <strong>Joongmin Shin</strong>, Gyuho Shim, Jeongbae Park, Jaehyung Seo, Heuiseok Lim
         </div>
         <div class="pub-desc">
-          Introduces a hierarchical taxonomy of OCR errors and a synthetic data contamination strategy
-          that injects realistic OCR-like noise at the character, word, and structural level — enabling
-          robust document reconstruction without costly real-error annotations.
+          HiKEY introduces a hierarchical multimodal retrieval framework for open-domain document question answering.
+          The system combines global routing, local ranking, and structured evidence assembly to improve retrieval
+          quality across long and visually complex documents.
         </div>
         <div class="pub-links">
-          <a href="https://github.com/gyuhoshim/revise-ocr-correction" target="_blank">GitHub</a>
+          <a href="https://shinjm-maker.github.io/publications/hikey.html" target="_blank">Paper</a>
         </div>
       </div>
 
       <div class="pub-card">
-        <span class="pub-venue venue-cvpr">CVPR 2026</span>
+        <span class="pub-venue venue-cvpr">CVPR 2026 MAIN</span>
         <div class="pub-title">
           M3DocDep: Multi-modal, Multi-page, Multi-document Dependency Chunking with Large Vision-Language Models
         </div>
@@ -344,7 +350,7 @@
       </div>
 
       <div class="pub-card">
-        <span class="pub-venue venue-emnlp">EMNLP 2025</span>
+        <span class="pub-venue venue-emnlp">EMNLP 2025 MAIN</span>
         <div class="pub-title">
           MultiDocFusion: Hierarchical and Multimodal Chunking Pipeline for Enhanced RAG on Long Industrial Documents
         </div>
@@ -357,6 +363,24 @@
         </div>
         <div class="pub-links">
           <a href="https://shinjm-maker.github.io/publications/multidocfusion.html" target="_blank">Paper</a>
+        </div>
+      </div>
+
+      <div class="pub-card">
+        <span class="pub-venue venue-acl">ACL 2025 INDUSTRY</span>
+        <div class="pub-title">
+          REVISE: A Framework for Revising OCRed Text in Practical Information Systems with Data Contamination Strategy
+        </div>
+        <div class="pub-authors">
+          <strong>Gyuho Shim</strong>, Seongtae Hong, Heuiseok Lim
+        </div>
+        <div class="pub-desc">
+          Introduces a hierarchical taxonomy of OCR errors and a synthetic data contamination strategy
+          that injects realistic OCR-like noise at the character, word, and structural level — enabling
+          robust document reconstruction without costly real-error annotations.
+        </div>
+        <div class="pub-links">
+          <a href="https://github.com/gyuhoshim/revise-ocr-correction" target="_blank">GitHub</a>
         </div>
       </div>
 
@@ -394,12 +418,12 @@
           <span class="proj-tag proj-tag--funded">Government-funded</span>
         </div>
         <h3 class="proj-title">Synapse</h3>
-        <p class="proj-subtitle">Development of an LLM-Based Multilingual Medical Consultation Service</p>
+        <p class="proj-subtitle">Development of an LLM-Based Multilingual Consultation Service</p>
         <p class="proj-desc">
-          Synapse is a multilingual medical consultation system powered by large language models,
-          designed to deliver accurate, context-aware health guidance across language barriers.
+          Synapse is a multilingual consultation system powered by large language models,
+          designed to deliver accurate, context-aware guidance across language barriers.
           The project focuses on robust multilingual understanding, domain-specific instruction tuning,
-          and safe deployment of LLMs in clinical advisory contexts.
+          and safe deployment of LLMs in real-world advisory contexts.
         </p>
         <div class="proj-footer">
           <span class="proj-role">Research · Development</span>

@@ -542,6 +542,12 @@ section { padding: 6rem 2rem; }
   color: var(--text-muted);
   margin-bottom: 0.3rem;
 }
+.team-role-group {
+  display: flex;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.4rem;
+}
 .team-role {
   display: inline-block;
   font-size: 0.68rem;
@@ -555,9 +561,11 @@ section { padding: 6rem 2rem; }
   padding: 0.12rem 0.5rem;
   margin-bottom: 0.4rem;
 }
+.team-role-group .team-role { margin-bottom: 0; }
 .team-role.role-pi   { background: var(--accent); color: #fff; }
 .team-role.role-prof { background: var(--primary); color: rgba(255,255,255,0.85); }
 .team-role.role-lead { background: var(--accent-light); color: var(--accent); border: 1px solid rgba(140,21,21,0.18); }
+.team-role.role-founder { background: #e9dec0; color: #6a4b17; border: 1px solid rgba(106,75,23,0.18); }
 
 .team-links { display: flex; gap: 0.6rem; margin-top: 0.45rem; flex-wrap: wrap; }
 .team-links a {
