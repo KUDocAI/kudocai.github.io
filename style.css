@@ -600,6 +600,58 @@ section { padding: 6rem 2rem; }
 }
 .team-card-pi .team-name { font-size: clamp(1rem, 2vw, 1.2rem); }
 
+/* ===== TIMELINE EXPAND ===== */
+.tl-hint {
+  font-size: 0.7rem;
+  color: var(--accent);
+  margin-top: 0.25rem;
+  opacity: 0.75;
+}
+.tl-expand {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.35s ease, opacity 0.25s, margin-top 0.25s;
+  margin-top: 0;
+}
+.tl-expanded .tl-expand {
+  max-height: 200px;
+  opacity: 1;
+  margin-top: 0.5rem;
+}
+.tl-expand-count {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 0.3rem;
+  letter-spacing: 0.02em;
+}
+.tl-expand-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.tl-expand-list li {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  padding: 0.18rem 0 0.18rem 0.6rem;
+  border-left: 2px solid var(--accent-light);
+  margin-bottom: 0.15rem;
+  line-height: 1.4;
+}
+
+/* ===== PUB SUBSECTION ===== */
+.pub-subsection-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 0.8rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--border);
+}
+
 /* ===== PUBLICATIONS ===== */
 .pub-list { display: flex; flex-direction: column; gap: 0; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
 .pub-card {
