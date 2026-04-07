@@ -793,6 +793,36 @@ section { padding: 6rem 2rem; }
   flex: 1;
 }
 
+.proj-based-on {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border);
+}
+.proj-based-label {
+  font-size: 0.67rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+.proj-paper-tag {
+  font-size: 0.71rem;
+  font-weight: 500;
+  color: var(--accent);
+  background: var(--accent-light);
+  border: 1px solid rgba(140,21,21,0.15);
+  border-radius: 4px;
+  padding: 0.12rem 0.5rem;
+  text-decoration: none;
+  transition: background 0.15s;
+}
+.proj-paper-tag:hover { background: rgba(140,21,21,0.12); text-decoration: none; }
+
 .proj-footer {
   display: flex;
   align-items: center;

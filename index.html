@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>KUDoc — Korea University Document AI</title>
   <meta name="description" content="KUDoc is the Document AI research team at Korea University NLP&AI Lab, led by Prof. Heuiseok Lim." />
-  <link rel="stylesheet" href="style.css?v=16" />
+  <link rel="stylesheet" href="style.css?v=17" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,600;1,8..60,700&display=swap" rel="stylesheet" />
@@ -362,7 +362,7 @@
     <div class="pub-subsubsection-label">International</div>
     <div class="pub-list">
 
-      <div class="pub-card">
+      <div class="pub-card" id="pub-hikey">
         <span class="pub-venue venue-acl">ACL 2026 MAIN</span><span class="pub-tag-oral">Oral</span>
         <div class="pub-title">HiKEY: Hierarchical Multimodal Retrieval for Open-Domain Document Question Answering</div>
         <div class="pub-authors"><strong>Joongmin Shin</strong>, <strong>Gyuho Shim</strong>, Jeongbae Park, Jaehyung Seo, Heuiseok Lim</div>
@@ -377,7 +377,7 @@
         <div class="pub-desc">Proposes an entity-aware sub-table generation framework for question answering over real-world multi-table settings, addressing challenges of entity disambiguation and cross-table reasoning in structured document understanding.</div>
       </div>
 
-      <div class="pub-card">
+      <div class="pub-card" id="pub-m3docdep">
         <span class="pub-venue venue-cvpr">CVPR 2026 MAIN</span>
         <div class="pub-title">M3DocDep: Multi-modal, Multi-page, Multi-document Dependency Chunking with Large Vision-Language Models</div>
         <div class="pub-authors"><strong>Joongmin Shin</strong>, Jeongbae Park, Jaehyung Seo, Heuiseok Lim</div>
@@ -385,7 +385,7 @@
         <div class="pub-links"><a href="https://shinjm-maker.github.io/publications/m3docdep.html" target="_blank">Paper</a></div>
       </div>
 
-      <div class="pub-card">
+      <div class="pub-card" id="pub-multidocfusion">
         <span class="pub-venue venue-emnlp">EMNLP 2025 MAIN</span>
         <div class="pub-title">MultiDocFusion: Hierarchical and Multimodal Chunking Pipeline for Enhanced RAG on Long Industrial Documents</div>
         <div class="pub-authors"><strong>Joongmin Shin</strong>, Chanjun Park, Jeongbae Park, Jaehyung Seo, Heuiseok Lim</div>
@@ -393,7 +393,7 @@
         <div class="pub-links"><a href="https://shinjm-maker.github.io/publications/multidocfusion.html" target="_blank">Paper</a></div>
       </div>
 
-      <div class="pub-card">
+      <div class="pub-card" id="pub-revise">
         <span class="pub-venue venue-acl">ACL 2025 INDUSTRY</span><span class="pub-tag-oral">Oral</span>
         <div class="pub-title">REVISE: A Framework for Revising OCRed Text in Practical Information Systems with Data Contamination Strategy</div>
         <div class="pub-authors"><strong>Gyuho Shim</strong>, Seongtae Hong, Heuiseok Lim</div>
@@ -401,7 +401,7 @@
         <div class="pub-links"><a href="https://github.com/gyuhoshim/revise-ocr-correction" target="_blank">GitHub</a></div>
       </div>
 
-      <div class="pub-card">
+      <div class="pub-card" id="pub-styledfs">
         <span class="pub-venue venue-emnlp">EMNLP 2024 INDUSTRY</span>
         <div class="pub-title">Intelligent Predictive Maintenance RAG Framework for Power Plants: Enhancing QA with StyleDFS and Domain-Specific Instruction Tuning</div>
         <div class="pub-authors">Seongtae Hong, <strong>Joongmin Shin</strong>, Jaehyung Seo, Taemin Lee, Jeongbae Park, Heuiseok Lim</div>
@@ -414,7 +414,7 @@
     <div class="pub-subsubsection-label">Domestic</div>
     <div class="pub-list">
 
-      <div class="pub-card">
+      <div class="pub-card" id="pub-hclt2024">
         <span class="pub-venue venue-domestic">HCLT 2024</span>
         <div class="pub-title">초거대 언어모델을 활용한 교육 도메인의 구조적 정보 추출</div>
         <div class="pub-authors"><strong>Myunghoon Kang</strong></div>
@@ -494,7 +494,12 @@
         </p>
         <div class="proj-footer">
           <span class="proj-role">Research · Design · Development</span>
-          <span class="proj-award">EMNLP 2025 &amp; CVPR 2026</span>
+        </div>
+        <div class="proj-based-on">
+          <span class="proj-based-label">Based on</span>
+          <a href="#pub-multidocfusion" class="proj-paper-tag">MultiDocFusion</a>
+          <a href="#pub-hikey" class="proj-paper-tag">HiKEY</a>
+          <a href="#pub-m3docdep" class="proj-paper-tag">M3DocDep</a>
         </div>
       </div>
 
@@ -513,6 +518,11 @@
         </p>
         <div class="proj-footer">
           <span class="proj-role">Research · Development</span>
+        </div>
+        <div class="proj-based-on">
+          <span class="proj-based-label">Based on</span>
+          <a href="#pub-styledfs" class="proj-paper-tag">StyleDFS</a>
+          <a href="#pub-revise" class="proj-paper-tag">REVISE</a>
         </div>
       </div>
     </div>
@@ -534,6 +544,10 @@
         </p>
         <div class="proj-footer">
           <span class="proj-role">Research · Development</span>
+        </div>
+        <div class="proj-based-on">
+          <span class="proj-based-label">Based on</span>
+          <a href="#pub-hclt2024" class="proj-paper-tag">초거대 LLM 교육 도메인 구조적 정보 추출</a>
         </div>
       </div>
 
