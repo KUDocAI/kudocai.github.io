@@ -10,69 +10,65 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,600;1,8..60,700&display=swap" rel="stylesheet" />
   <style>
-    .blog-list {
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
-      margin-top: 2.5rem;
+    .blog-header {
+      max-width: 760px;
+      margin-bottom: 2rem;
     }
+
+    .blog-header p {
+      margin: .75rem 0 0;
+      color: #666;
+      font-size: .98rem;
+      line-height: 1.7;
+    }
+
+    .blog-list {
+      display: grid;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
     .blog-card {
-      background: var(--bg-card);
+      background: #fff;
       border: 1px solid rgba(20,20,19,.08);
       border-radius: 12px;
-      padding: 2rem 2.25rem;
-      transition: box-shadow .2s;
+      padding: 1.3rem 1.4rem;
+      transition: box-shadow .2s ease, transform .2s ease;
     }
+
     .blog-card:hover {
-      box-shadow: 0 4px 20px rgba(20,20,19,.1);
+      box-shadow: 0 8px 24px rgba(20,20,19,.08);
+      transform: translateY(-2px);
     }
+
     .blog-meta {
-      display: flex;
-      align-items: center;
-      gap: .75rem;
-      font-size: .8rem;
-      color: #888;
-      margin-bottom: .6rem;
-    }
-    .blog-tag {
-      background: var(--accent);
-      color: #fff;
-      border-radius: 4px;
-      padding: .15em .55em;
-      font-size: .72rem;
-      font-weight: 600;
-      letter-spacing: .02em;
-      text-transform: uppercase;
-    }
-    .blog-title {
-      font-family: 'Source Serif 4', serif;
-      font-size: 1.35rem;
-      font-weight: 700;
-      color: var(--primary);
-      margin: 0 0 .6rem;
-      line-height: 1.3;
-    }
-    .blog-excerpt {
-      color: #555;
-      font-size: .9rem;
-      line-height: 1.7;
-      margin: 0 0 1.1rem;
-    }
-    .blog-author {
       font-size: .82rem;
-      color: #777;
+      color: #888;
+      margin-bottom: .55rem;
     }
-    .blog-author strong {
+
+    .blog-title {
+      margin: 0 0 .55rem;
+      font-family: 'Source Serif 4', serif;
+      font-size: 1.28rem;
+      font-weight: 700;
+      line-height: 1.35;
+    }
+
+    .blog-title a {
       color: var(--primary);
+      text-decoration: none;
     }
-    .blog-empty {
-      text-align: center;
-      padding: 4rem 0;
-      color: #999;
-      font-size: .95rem;
+
+    .blog-title a:hover {
+      text-decoration: underline;
     }
-    .blog-empty p {
-      margin: .4rem 0;
+
+    .blog-excerpt {
+      margin: 0;
+      color: #555;
+      font-size: .94rem;
+      line-height: 1.7;
     }
   </style>
 </head>
@@ -102,17 +98,30 @@
 <!-- ===== BLOG ===== -->
 <section id="blog" style="padding-top: 7rem;">
   <div class="container">
-    <div class="section-eyebrow">Research Insights &amp; Updates</div>
-    <h2 class="section-title">Blog</h2>
+
+    <div class="blog-header">
+      <div class="section-eyebrow">Research Insights &amp; Updates</div>
+      <h2 class="section-title">Blogs</h2>
+      <p>
+        Paper reviews, research notes, and updates from KUDoc on Document AI,
+        multimodal understanding, and long-context reasoning.
+      </p>
+    </div>
 
     <div class="blog-list">
 
-      <!-- Example post — remove or replace when real posts are ready -->
-      <div class="blog-empty">
-        <p>Posts coming soon.</p>
-        <p>Check back for research notes, paper summaries, and team updates.</p>
-      </div>
-
+      <article class="blog-card">
+        <div class="blog-meta">Paper Review · Apr 2025</div>
+        <h3 class="blog-title">
+          <a href="blogs/blog-DocAgent.html">
+            Paper Review of DocAgent: An Agentic Framework for Multi-Modal Long-Context Document Understanding
+          </a>
+        </h3>
+        <p class="blog-excerpt">
+          A short review of DocAgent, focusing on its agentic design for multimodal
+          long-context document understanding.
+        </p>
+      </article>
     </div>
   </div>
 </section>
