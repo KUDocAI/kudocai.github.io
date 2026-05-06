@@ -1,0 +1,1411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>From Retrieved Context to Evidence-Seeking Trajectories | KUDoc</title>
+  <meta
+    name="description"
+    content="A trajectory-level survey of Agentic Multimodal RAG, reframing RAG as cost-constrained multimodal evidence seeking."
+  />
+  <meta name="author" content="Thanh Duong" />
+
+  <meta property="og:title" content="From Retrieved Context to Evidence-Seeking Trajectories" />
+  <meta
+    property="og:description"
+    content="A trajectory-level survey of Agentic Multimodal RAG: evidence units, tool-use trajectories, grounding, verification, benchmarks, and open problems."
+  />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="images/evidence_loop.png" />
+  <meta property="article:published_time" content="2026-05" />
+
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,600;1,8..60,700&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    :root {
+      --article-max: 840px;
+      --article-wide: 980px;
+    }
+
+    .skip-link {
+      position: absolute;
+      left: -999px;
+      top: 1rem;
+      z-index: 9999;
+      background: var(--primary);
+      color: #fff;
+      padding: .7rem 1rem;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .skip-link:focus {
+      left: 1rem;
+    }
+
+    .article-page {
+      padding-top: 3.5rem;
+      padding-bottom: 4rem;
+    }
+
+    .article-wrap {
+      max-width: var(--article-max);
+      margin: 0 auto;
+    }
+
+    .article-wide {
+      width: min(var(--article-wide), 100%);
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .article-back {
+      display: inline-block;
+      margin: 1rem 0 1.5rem;
+      color: #777;
+      text-decoration: none;
+      font-size: .92rem;
+    }
+
+    .article-back:hover,
+    .article-footer a:hover {
+      text-decoration: underline;
+    }
+
+    .article-header {
+      margin-bottom: 2rem;
+    }
+
+    .article-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .7rem;
+      align-items: center;
+      font-size: .82rem;
+      color: #888;
+      margin-bottom: .8rem;
+    }
+
+    .article-tag {
+      display: inline-block;
+      background: var(--primary);
+      color: #fff;
+      border-radius: 999px;
+      padding: .3rem .7rem;
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+
+    .article-title {
+      margin: 0 0 1rem;
+      font-family: 'Source Serif 4', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.12;
+      color: var(--text);
+      text-wrap: balance;
+    }
+
+    .article-subtitle {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.85;
+      max-width: 780px;
+    }
+
+    .article-highlight,
+    .article-info,
+    .article-note,
+    .article-placeholder,
+    .article-callout {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 1rem 1.15rem;
+    }
+
+    .article-highlight {
+      border-left: 4px solid var(--primary);
+      margin: 2rem 0;
+      color: #444;
+      line-height: 1.8;
+    }
+
+    .article-claim {
+      margin: 2rem 0;
+      padding: 1.25rem 1.35rem;
+      border-radius: 18px;
+      border: 1px solid rgba(20, 20, 19, .08);
+      background:
+        linear-gradient(135deg, rgba(42, 93, 140, .10), rgba(255, 255, 255, .78)),
+        var(--white);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, .04);
+    }
+
+    .article-claim-label {
+      display: block;
+      margin-bottom: .4rem;
+      color: var(--primary);
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+    }
+
+    .article-claim p {
+      margin: 0;
+      color: #222;
+      font-family: 'Source Serif 4', serif;
+      font-size: 1.2rem;
+      line-height: 1.65;
+    }
+
+    .article-info {
+      margin: 2rem 0;
+    }
+
+    .article-info p {
+      margin: .3rem 0;
+      color: #444;
+      font-size: .96rem;
+      line-height: 1.8;
+    }
+
+    .article-content {
+      color: #222;
+      font-size: 1rem;
+      line-height: 1.9;
+    }
+
+    .article-content h2 {
+      margin: 2.75rem 0 .9rem;
+      font-family: 'Source Serif 4', serif;
+      font-size: 1.75rem;
+      color: var(--text);
+      line-height: 1.3;
+      text-wrap: balance;
+    }
+
+    .article-content h3 {
+      margin: 1.85rem 0 .7rem;
+      font-family: 'Source Serif 4', serif;
+      font-size: 1.24rem;
+      color: var(--text);
+    }
+
+    .article-content p {
+      margin: 0 0 1rem;
+      color: #333;
+    }
+
+    .article-section-lead {
+      color: #444;
+      font-size: 1.02rem;
+      line-height: 1.9;
+    }
+
+    .article-content ul,
+    .article-content ol {
+      margin: 0 0 1.2rem 1.2rem;
+      padding: 0;
+    }
+
+    .article-content li {
+      margin-bottom: .65rem;
+      color: #333;
+    }
+
+    .article-content strong {
+      color: #222;
+    }
+
+    .article-table-wrap {
+      overflow-x: auto;
+      margin: 1.2rem 0 1.6rem;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--white);
+    }
+
+    .article-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 760px;
+      font-size: .92rem;
+      line-height: 1.6;
+    }
+
+    .article-table caption {
+      caption-side: top;
+      padding: .9rem 1rem .4rem;
+      color: #555;
+      font-size: .88rem;
+      font-weight: 700;
+      text-align: left;
+    }
+
+    .article-table th,
+    .article-table td {
+      padding: .75rem .9rem;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .article-table th {
+      color: var(--primary);
+      font-size: .8rem;
+      letter-spacing: .03em;
+      text-transform: uppercase;
+      background: var(--soft);
+      white-space: nowrap;
+    }
+
+    .article-table tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .article-table td:first-child {
+      font-weight: 600;
+    }
+
+    .math-panel {
+      margin: 1.2rem 0 1.6rem;
+      padding: 1rem 1.15rem;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fafafa;
+    }
+
+    .math-row {
+      display: grid;
+      grid-template-columns: 150px minmax(0, 1fr);
+      gap: .8rem;
+      align-items: start;
+      padding: .55rem 0;
+      border-bottom: 1px solid rgba(20, 20, 19, .07);
+    }
+
+    .math-row:last-child {
+      border-bottom: 0;
+    }
+
+    .math-label {
+      color: var(--muted);
+      font-size: .82rem;
+      font-weight: 700;
+      letter-spacing: .03em;
+      text-transform: uppercase;
+    }
+
+    .math-expr {
+      color: #222;
+      font-family: 'Source Serif 4', serif;
+      font-size: 1.04rem;
+      line-height: 1.65;
+      overflow-wrap: anywhere;
+    }
+
+    .math-expr var {
+      font-style: italic;
+      font-weight: 600;
+    }
+
+    .math-expr sub {
+      font-size: .72em;
+      line-height: 0;
+    }
+
+    .article-note,
+    .article-callout {
+      background: var(--soft);
+      margin: 1.5rem 0;
+      color: #333;
+      line-height: 1.8;
+    }
+
+    .article-note strong,
+    .article-callout strong {
+      color: var(--primary);
+    }
+
+    .article-callout {
+      display: grid;
+      gap: .5rem;
+    }
+
+    .article-callout-title {
+      color: var(--primary);
+      font-weight: 800;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      font-size: .78rem;
+    }
+
+    .article-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+      margin: 1.2rem 0 1.6rem;
+    }
+
+    .article-card {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 1rem 1.1rem;
+    }
+
+    .article-card h3 {
+      margin-top: 0;
+      font-size: 1.08rem;
+    }
+
+    .article-card p {
+      margin-bottom: .2rem;
+      font-size: .95rem;
+    }
+
+    .article-figure {
+      margin: 1.5rem 0 1.9rem;
+    }
+
+    .article-figure img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: #fafafa;
+    }
+
+    .article-figure figcaption {
+      margin-top: .55rem;
+      color: var(--muted);
+      font-size: .86rem;
+      line-height: 1.55;
+      text-align: center;
+    }
+
+    .article-footer {
+      margin-top: 3rem;
+      padding-top: 1.2rem;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+    }
+
+    .article-footer a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 1.4rem 0 2rem;
+      color: #777;
+      text-align: center;
+      font-size: .92rem;
+    }
+
+    @media (max-width: 860px) {
+      .nav-links {
+        display: none;
+      }
+
+      .article-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .article-page {
+        padding-top: 2.5rem;
+      }
+
+      .article-title {
+        font-size: 2rem;
+      }
+
+      .article-content {
+        font-size: .98rem;
+      }
+
+      .article-claim p {
+        font-size: 1.08rem;
+      }
+
+      .math-row {
+        grid-template-columns: 1fr;
+        gap: .2rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <a href="#main-content" class="skip-link">Skip to content</a>
+
+  <!-- ===== NAVIGATION ===== -->
+  <nav id="navbar" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-logo" aria-label="KUDoc home">
+        <div class="nav-logo-mark" aria-hidden="true">KU</div>
+        <span class="nav-name">KUDoc</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../index.html#research">Research</a></li>
+        <li><a href="../index.html#team">Group</a></li>
+        <li><a href="../faculty.html">Advisors</a></li>
+        <li><a href="../index.html#publications">Publications</a></li>
+        <li><a href="../index.html#projects">Projects</a></li>
+        <li><a href="../blog.html" class="nav-active" aria-current="page">Blog</a></li>
+        <li><a href="../index.html#institutions">Collaborating</a></li>
+        <li><a href="../index.html#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main id="main-content" class="article-page">
+    <div class="container">
+      <div class="article-wrap">
+        <a href="../blog.html" class="article-back">&larr; Back to Blog</a>
+
+        <header class="article-header">
+          <div class="article-meta">
+            <span class="article-tag">Survey Blog</span>
+            <span>May 2026</span>
+            <span>15 min read</span>
+            <span>By Thanh Duong</span>
+          </div>
+
+          <h1 class="article-title">
+            From Retrieved Context to Evidence-Seeking Trajectories: A Survey of Agentic Multimodal RAG
+          </h1>
+
+          <p class="article-subtitle">
+            A trajectory-level survey of Agentic Multimodal RAG, covering the research flow,
+            formalization, taxonomy, benchmark landscape, reporting protocol, and open problems for
+            evidence-grounded multimodal systems.
+          </p>
+        </header>
+
+        <section class="article-claim" aria-label="Central claim">
+          <span class="article-claim-label">Central claim</span>
+          <p>
+            Agentic Multimodal RAG should not be evaluated as a simple retrieve-then-generate pipeline.
+            It should be understood as a cost-constrained evidence-seeking trajectory over heterogeneous
+            evidence units such as passages, pages, regions, tables, charts, screenshots, frames, clips,
+            and UI states.
+          </p>
+        </section>
+
+        <section class="article-info" aria-label="Article information">
+          <p><strong>Title:</strong> From Retrieved Context to Evidence-Seeking Trajectories: A Survey of Agentic Multimodal RAG</p>
+          <p><strong>Focus:</strong> Agentic Multimodal Evidence Seeking</p>
+          <p><strong>Topic:</strong> Agentic RAG, Multimodal RAG, Document AI, Evidence Grounding, Trajectory Evaluation</p>
+        </section>
+
+        <article class="article-content">
+          <h2>1. Problem setting</h2>
+          <p class="article-section-lead">
+            Retrieval-Augmented Generation grounds language models in external knowledge, but the standard
+            retrieve-then-read formulation remains mostly text-centric and pipeline-based. The assumption becomes
+            insufficient when the required support is distributed across long documents, layouts, tables, charts,
+            screenshots, webpages, frames, clips, and videos.
+          </p>
+          <p>
+            This survey uses <strong>evidence seeking</strong> as the central problem. In this setting, a system
+            must decide where to look, which tool to use, which observation to trust, whether the accumulated
+            evidence is sufficient, and how the final answer is grounded. The object of analysis is therefore
+            not only a retrieved chunk or final answer, but the sequence of decisions that leads to the answer.
+          </p>
+          <p>
+            The survey reconstructs the flow from LLM agents and static RAG to agentic RAG, multimodal RAG, visual
+            document RAG, document agents, visual web/GUI agents, and video agentic RAG. It uses the
+            <strong>evidence-seeking step</strong> as the unit of analysis: action, observation, memory update,
+            verification, and stopping.
+          </p>
+
+          <h2>2. Research questions</h2>
+          <p>
+            The survey is organized around five research questions. These questions turn the topic from a broad
+            catalog of agentic and multimodal systems into a focused study of how systems search, inspect, verify,
+            remember, stop, and cite evidence.
+          </p>
+
+          <div class="article-table-wrap">
+            <table class="article-table">
+              <caption>Research questions guiding the survey.</caption>
+              <thead>
+                <tr>
+                  <th>RQ</th>
+                  <th>Question</th>
+                  <th>Why it matters</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>RQ1</td>
+                  <td>What makes a RAG system agentic in multimodal evidence-seeking settings?</td>
+                  <td>Clarifies the boundary between static RAG, iterative RAG, tool-use agents, and strong Agentic MRAG.</td>
+                </tr>
+                <tr>
+                  <td>RQ2</td>
+                  <td>What evidence units and action spaces are used across text, document, web, GUI, and video environments?</td>
+                  <td>Shows how the search problem changes when evidence becomes visual, spatial, temporal, or interactive.</td>
+                </tr>
+                <tr>
+                  <td>RQ3</td>
+                  <td>How do existing systems verify, remember, and cite multimodal evidence?</td>
+                  <td>Separates grounded evidence use from unsupported answer generation.</td>
+                </tr>
+                <tr>
+                  <td>RQ4</td>
+                  <td>Which benchmarks evaluate trajectory quality rather than only final-answer accuracy?</td>
+                  <td>Identifies whether systems are tested for search, inspection, grounding, stopping, and cost.</td>
+                </tr>
+                <tr>
+                  <td>RQ5</td>
+                  <td>What open problems remain for trustworthy and cost-aware Agentic Multimodal RAG?</td>
+                  <td>Connects open directions to concrete limitations in methods, benchmarks, and reporting standards.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>3. Terminology and scope</h2>
+          <p>
+            Agentic Multimodal RAG combines terms that are often used loosely. This survey uses the following
+            terminology to keep the scope precise.
+          </p>
+
+          <div class="article-table-wrap">
+            <table class="article-table">
+              <caption>Working glossary for trajectory-level Agentic Multimodal RAG.</caption>
+              <thead>
+                <tr>
+                  <th>Term</th>
+                  <th>Meaning in this survey</th>
+                  <th>Example</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Evidence unit</td>
+                  <td>The smallest unit that can be searched, inspected, cited, or verified.</td>
+                  <td>Passage, page, crop, table cell, chart mark, frame, clip, UI element.</td>
+                </tr>
+                <tr>
+                  <td>Trajectory</td>
+                  <td>The step-by-step action-observation-memory-verification path before the final answer.</td>
+                  <td>Plan &rarr; retrieve page &rarr; crop table &rarr; OCR cell &rarr; verify &rarr; answer.</td>
+                </tr>
+                <tr>
+                  <td>Grounding</td>
+                  <td>The alignment between a final claim and the exact evidence that supports it.</td>
+                  <td>A financial claim linked to a specific report page, table row, and cell.</td>
+                </tr>
+                <tr>
+                  <td>Provenance</td>
+                  <td>Source metadata that makes evidence auditable across steps.</td>
+                  <td>Document ID, page number, coordinates, timestamp, tool output, confidence.</td>
+                </tr>
+                <tr>
+                  <td>Verifier</td>
+                  <td>A module, model, or policy that checks support, sufficiency, contradiction, or need for more search.</td>
+                  <td>A planner-reader-verifier loop that rejects unsupported evidence.</td>
+                </tr>
+                <tr>
+                  <td>Stopping</td>
+                  <td>The decision to stop searching and produce an answer under a budget.</td>
+                  <td>Answer now because enough support has been found, or retrieve again because evidence is incomplete.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>4. Survey protocol and coding axes</h2>
+          <p>
+            A trajectory-level survey should make its corpus construction and coding criteria explicit. The protocol
+            below is designed for a paper version of this blog and can be used to support a systematic screening log
+            or appendix.
+          </p>
+
+          <div class="article-table-wrap">
+            <table class="article-table">
+              <caption>Survey protocol without reference-level citation details.</caption>
+              <thead>
+                <tr>
+                  <th>Item</th>
+                  <th>Planned disclosure</th>
+                  <th>Purpose</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Search period</td>
+                  <td>2020 to May 2026, with explicit marking of recent preprints when needed.</td>
+                  <td>Makes temporal coverage clear and avoids mixing mature and emerging lines without status labels.</td>
+                </tr>
+                <tr>
+                  <td>Search sources</td>
+                  <td>Academic search engines, preprint servers, conference proceedings, OpenReview, and public project pages.</td>
+                  <td>Prevents the survey from appearing based on ad-hoc paper collection.</td>
+                </tr>
+                <tr>
+                  <td>Keyword groups</td>
+                  <td>Agentic RAG, multimodal RAG, visual document RAG, document agents, video RAG, GUI agents, evidence grounding, tool-use retrieval.</td>
+                  <td>Captures both direct Agentic RAG papers and adjacent systems that implement evidence-seeking behavior.</td>
+                </tr>
+                <tr>
+                  <td>Inclusion criteria</td>
+                  <td>Systems or benchmarks involving retrieval, tool use, inspection, verification, or citation over multimodal evidence.</td>
+                  <td>Keeps the corpus tied to evidence-seeking rather than generic multimodal understanding.</td>
+                </tr>
+                <tr>
+                  <td>Exclusion criteria</td>
+                  <td>Pure VQA, pure OCR, pure retrieval, or pure agent papers without evidence-grounded retrieval or inspection behavior.</td>
+                  <td>Avoids scope drift and makes the boundary of Agentic MRAG defensible.</td>
+                </tr>
+                <tr>
+                  <td>Coding axes</td>
+                  <td>Evidence space, evidence unit, action space, policy type, memory, verifier, grounding target, trajectory signal, cost signal.</td>
+                  <td>Supports quantitative field audit figures and benchmark matrices.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>5. Positioning against nearby surveys</h2>
+          <p>
+            The survey distinguishes its scope from several adjacent survey families. LLM-agent surveys emphasize
+            planning, memory, tools, reflection, and collaboration, but usually do not center exact evidence units or
+            citation. RAG surveys emphasize indexing, retrieval, augmentation, generation, reranking, and evaluation,
+            but often treat retrieval as a module rather than a trajectory decision. Multimodal RAG surveys cover
+            cross-modal retrieval and fusion, while document-oriented MRAG surveys focus on document pipelines,
+            retrieval granularity, graph structures, datasets, and applications.
+          </p>
+          <p>
+            The main distinction is <strong>trajectory-level evidence seeking over heterogeneous evidence units</strong>.
+            The selected unit can be a passage, page, region, table cell, chart mark, screenshot element, frame,
+            clip, event, or UI state. The evaluation target also changes: answer correctness is separated from
+            search, inspection, grounding, stopping, citation, and cost.
+          </p>
+
+          <div class="article-table-wrap">
+            <table class="article-table">
+              <caption>How this survey differs from adjacent survey families.</caption>
+              <thead>
+                <tr>
+                  <th>Survey family</th>
+                  <th>Typical focus</th>
+                  <th>Common missing aspect</th>
+                  <th>This survey's focus</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>LLM agent surveys</td>
+                  <td>Planning, tools, memory, reflection, collaboration.</td>
+                  <td>Exact evidence units, citation targets, and grounding quality.</td>
+                  <td>Agent behavior as evidence-seeking trajectory.</td>
+                </tr>
+                <tr>
+                  <td>RAG surveys</td>
+                  <td>Indexing, retrieval, augmentation, reranking, generation.</td>
+                  <td>Adaptive action choice, stopping, and process-level evidence quality.</td>
+                  <td>Retrieval as policy rather than fixed module.</td>
+                </tr>
+                <tr>
+                  <td>Multimodal RAG surveys</td>
+                  <td>Cross-modal retrieval, fusion, visual-textual memory.</td>
+                  <td>Tool-use trajectories and multimodal verification.</td>
+                  <td>Search, inspect, verify, remember, and cite across modalities.</td>
+                </tr>
+                <tr>
+                  <td>Document AI surveys</td>
+                  <td>OCR, layout parsing, document QA, visual document understanding.</td>
+                  <td>Agentic navigation over pages, regions, tables, figures, and long documents.</td>
+                  <td>Documents as navigable evidence environments.</td>
+                </tr>
+                <tr>
+                  <td>Web/GUI agent surveys</td>
+                  <td>Action execution, UI grounding, task completion.</td>
+                  <td>Claim-level evidence support and citation-aware answer generation.</td>
+                  <td>Interactive states as evidence units for grounded responses.</td>
+                </tr>
+                <tr>
+                  <td>Video understanding surveys</td>
+                  <td>Video QA, temporal reasoning, event localization.</td>
+                  <td>Retrieval policy, temporal citation, and cost-aware frame/clip selection.</td>
+                  <td>Temporal evidence seeking as agentic retrieval.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>6. Agentic Multimodal Evidence Seeking</h2>
+          <p>
+            The survey defines Agentic Multimodal Evidence Seeking as an iterative process where a system gathers
+            and verifies evidence across a multimodal information space before answering. The evidence space
+            <span class="math-expr"><var>E</var></span> can contain passages, pages, regions, tables, charts, frames,
+            clips, webpages, interface states, or videos.
+          </p>
+
+          <div class="math-panel" aria-label="Agentic Multimodal Evidence Seeking formalization">
+            <div class="math-row">
+              <div class="math-label">Evidence</div>
+              <div class="math-expr">
+                <var>E</var> = {passages, pages, regions, tables, charts, frames, clips, webpages, UI states, videos}
+              </div>
+            </div>
+            <div class="math-row">
+              <div class="math-label">State</div>
+              <div class="math-expr">
+                <var>s</var><sub>t</sub> = (<var>q</var>, <var>M</var><sub>t</sub>, <var>o</var><sub>&lt;t</sub>, <var>b</var><sub>t</sub>)
+              </div>
+            </div>
+            <div class="math-row">
+              <div class="math-label">Action</div>
+              <div class="math-expr">
+                <var>a</var><sub>t</sub> = (<var>&tau;</var><sub>t</sub>, <var>u</var><sub>t</sub>), where <var>u</var><sub>t</sub> &isin; <var>E</var>
+              </div>
+            </div>
+            <div class="math-row">
+              <div class="math-label">Observation</div>
+              <div class="math-expr">
+                environment(<var>a</var><sub>t</sub>) &rarr; (<var>o</var><sub>t+1</sub>, <var>c</var><sub>t</sub>)
+              </div>
+            </div>
+            <div class="math-row">
+              <div class="math-label">Memory</div>
+              <div class="math-expr">
+                <var>M</var><sub>t+1</sub> = <var>U</var>(<var>M</var><sub>t</sub>, <var>o</var><sub>t+1</sub>, <var>c</var><sub>t</sub>)
+              </div>
+            </div>
+          </div>
+
+          <p>
+            Here, <span class="math-expr"><var>q</var></span> is the query,
+            <span class="math-expr"><var>M</var><sub>t</sub></span> is evidence memory,
+            <span class="math-expr"><var>o</var><sub>&lt;t</sub></span> are previous observations, and
+            <span class="math-expr"><var>b</var><sub>t</sub></span> is the remaining budget. The operation
+            <span class="math-expr"><var>&tau;</var><sub>t</sub></span> can be retrieve, browse, crop, zoom, OCR,
+            parse, localize, calculate, summarize, compare, or verify. The memory update stores content, provenance,
+            confidence, and possibly rejected evidence. The process stops when a verifier estimates that the
+            accumulated evidence is sufficient, grounded, and worth the cost of answering.
+          </p>
+
+          <div class="article-callout">
+            <span class="article-callout-title">Concrete example</span>
+            <p>
+              In a financial-document question, the target unit may first be a candidate annual-report page,
+              then a cropped table region, and finally a specific table cell. The action sequence may be
+              retrieve &rarr; crop &rarr; OCR &rarr; calculate &rarr; verify. In a video question, the target unit may
+              move from a retrieved video to a temporal clip and then to a decisive frame interval.
+            </p>
+          </div>
+
+          <figure class="article-figure">
+            <img
+              src="images/evidence_loop.png"
+              alt="Agentic multimodal evidence-seeking loop with planning, action, observation, memory, verification, and stopping"
+              loading="lazy"
+              decoding="async"
+            />
+            <figcaption>Figure 1. Agentic multimodal evidence-seeking loop.</figcaption>
+          </figure>
+
+          <p><strong>The formulation separates five design decisions:</strong></p>
+          <ul>
+            <li><strong>Evidence unit:</strong> where to search.</li>
+            <li><strong>Tool/action:</strong> how to inspect the selected evidence.</li>
+            <li><strong>Memory/provenance:</strong> what to retain across steps.</li>
+            <li><strong>Verification:</strong> whether the evidence supports the claim.</li>
+            <li><strong>Stopping:</strong> when to answer under a budget.</li>
+          </ul>
+
+          <h2>7. Research flow and paper line</h2>
+          <p>
+            The paper line is organized along three axes: control primitives, retrieval policy, and evidence
+            granularity. Agentic Multimodal RAG appears where these axes converge.
+          </p>
+
+          <figure class="article-figure">
+            <img
+              src="images/research_flow.png"
+              alt="Research flow from LLM agents and static RAG toward Agentic Multimodal RAG"
+              loading="lazy"
+              decoding="async"
+            />
+            <figcaption>Figure 2. Research flow toward Agentic Multimodal RAG.</figcaption>
+          </figure>
+
+          <h3>From generation to action</h3>
+          <p>
+            ReAct turns reasoning into an interaction loop by interleaving reasoning traces, actions, and observations.
+            Toolformer, PAL, and HuggingGPT expand the action space through APIs, executable programs, and model
+            orchestration. Planning, reflection, and multi-agent systems add deliberation, self-correction, and role
+            specialization. These mechanisms provide the control layer used later for multimodal evidence seeking.
+          </p>
+
+          <h3>From static RAG to retrieval as policy</h3>
+          <p>
+            RAG and DPR establish external text memory for generation, but static retrieval is limited for multi-hop
+            or long-form tasks. IRCoT interleaves retrieval with chain-of-thought reasoning, FLARE retrieves actively
+            during generation, Self-RAG learns to retrieve and critique through self-reflection, Adaptive-RAG routes
+            questions by complexity, and CRAG evaluates retrieval quality before corrective actions. CogPlanner brings
+            this transition into multimodal RAG by treating retrieval strategy selection and query reformulation as
+            a planning problem.
+          </p>
+
+          <h3>From text chunks to multimodal evidence units</h3>
+          <p>
+            MuRAG, RA-CM3, and REVEAL expand retrieval augmentation from text passages to image-text or multimodal
+            memory. ColPali, VisRAG, and VDocRAG retrieve page images or visually rich document units rather than
+            text chunks. RAG-Anything and related graph-oriented approaches motivate representing multimodal content
+            as interconnected entities rather than isolated modality-specific stores. The evidence unit can become a
+            page, region, table cell, chart mark, figure, frame, clip, or event.
+          </p>
+
+          <h3>From document input to document environment</h3>
+          <p>
+            Document agents move beyond page retrieval by deciding where to look, how to inspect, what to remember,
+            and when to verify. ViDoRAG frames visual document RAG as multi-agent exploration with retrieval,
+            summarization, and reflection. DocAgent treats long-context document understanding as an agentic reading
+            process over structured document evidence. MDocAgent is treated as a preprint and is described
+            as exploring multi-agent specialization over text and image evidence.
+          </p>
+
+          <h3>Beyond documents: webpages, GUIs, and video</h3>
+          <p>
+            SeeAct, VisualWebArena, and OSWorld show that screenshots and interfaces can be treated as visual
+            environments with actions and grounding requirements. Their objective is often task completion rather than
+            question answering, but the same action-observation structure appears. VideoAgent, Video-RAG, and VideoRAG
+            extend evidence seeking temporally: page retrieval becomes frame/clip retrieval, document memory becomes
+            temporal memory, and page citation becomes temporal citation.
+          </p>
+
+          <figure class="article-figure">
+            <img
+              src="images/paper_line.png"
+              alt="Paper lineage for Agentic Multimodal RAG across agents, RAG, multimodal RAG, document agents, GUI agents, and video RAG"
+              loading="lazy"
+              decoding="async"
+            />
+            <figcaption>Figure 3. Paper lineage for Agentic Multimodal RAG.</figcaption>
+          </figure>
+
+          <h2>8. Taxonomy</h2>
+          <p>
+            The taxonomy classifies systems by how they seek evidence rather than by model family alone. Changing
+            from passage retrieval to page retrieval changes the available actions. Changing from page to region
+            changes the grounding target. Changing from document to video changes memory and citation format.
+          </p>
+
+          <div class="article-table-wrap">
+            <table class="article-table">
+              <caption>Coding axes for classifying Agentic Multimodal RAG systems.</caption>
+              <thead>
+                <tr>
+                  <th>Coding axis</th>
+                  <th>Typical values</th>
+                  <th>Reason for inclusion</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Evidence space</td>
+                  <td>Text corpus, image-text memory, page images, document collection, webpage/GUI state, video corpus.</td>
+                  <td>Defines what the agent can observe and whether the environment is static, navigable, or interactive.</td>
+                </tr>
+                <tr>
+                  <td>Evidence unit</td>
+                  <td>Passage, page, region, table cell, chart mark, screenshot element, frame, clip, event.</td>
+                  <td>Controls the granularity of retrieval, inspection, citation, and evaluation.</td>
+                </tr>
+                <tr>
+                  <td>Action space</td>
+                  <td>Retrieve, decompose, browse, crop, zoom, OCR/parse, localize, compare, calculate, summarize, verify.</td>
+                  <td>Defines what the agent can do beyond reading retrieved context.</td>
+                </tr>
+                <tr>
+                  <td>Policy type</td>
+                  <td>Static retrieval, iterative retrieval, learned routing, planner-based routing, multi-agent coordination.</td>
+                  <td>Distinguishes fixed pipelines from adaptive evidence-seeking trajectories.</td>
+                </tr>
+                <tr>
+                  <td>Memory/provenance</td>
+                  <td>Context buffer, notes, page cache, trajectory log, evidence graph, temporal memory.</td>
+                  <td>Determines whether evidence can be accumulated, audited, and cited across steps.</td>
+                </tr>
+                <tr>
+                  <td>Verifier/stopping</td>
+                  <td>None, self-critique, retrieval-quality evaluator, planner-reader-verifier, multimodal verifier.</td>
+                  <td>Tracks whether the system checks support and decides when to stop searching.</td>
+                </tr>
+                <tr>
+                  <td>Evaluation signal</td>
+                  <td>Answer score, evidence score, grounding score, trajectory score, cost-normalized utility.</td>
+                  <td>Separates answer correctness from search, inspection, grounding, and efficiency.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>Levels of agenticity</h3>
+          <p>
+            A common weakness in Agentic RAG discussions is that any iterative retrieval system may be called
+            agentic. This survey separates weak, moderate, and strong forms of agenticity.
+          </p>
+
+          <div class="article-table-wrap">
+            <table class="article-table">
+              <caption>Weak, moderate, and strong Agentic RAG.</caption>
+              <thead>
+                <tr>
+                  <th>Level</th>
+                  <th>Description</th>
+                  <th>Typical behavior</th>
+                  <th>Limitation</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Weak agentic RAG</td>
+                  <td>Retrieval is repeated or rewritten, but the action space remains narrow.</td>
+                  <td>Query rewrite, retrieve again, simple self-critique.</td>
+                  <td>Often improves recall but does not deeply inspect or verify evidence.</td>
+                </tr>
+                <tr>
+                  <td>Moderate agentic RAG</td>
+                  <td>A planner or controller selects among retrieval and tool actions over multiple steps.</td>
+                  <td>Decompose, retrieve, browse, summarize, rerank, verify, stop.</td>
+                  <td>May still lack exact multimodal grounding or cost-aware evaluation.</td>
+                </tr>
+                <tr>
+                  <td>Strong Agentic MRAG</td>
+                  <td>The system navigates heterogeneous multimodal evidence units, tracks provenance, verifies support, and stops under budget.</td>
+                  <td>Retrieve page, crop region, OCR table, compare chart, localize frame, verify claim, cite exact evidence.</td>
+                  <td>Requires richer benchmarks, trajectory logs, and standardized reporting.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>System classes</h3>
+          <ul>
+            <li><strong>Text-only agentic RAG:</strong> passage or chunk evidence, rewrite/decompose/retrieve/critique/stop actions, passage citation as grounding target.</li>
+            <li><strong>Multimodal RAG:</strong> passage, image, or table evidence; cross-modal retrieval followed by VLM/LLM reading.</li>
+            <li><strong>Visual document RAG:</strong> page or visual document unit retrieval, with page citation as a common grounding target.</li>
+            <li><strong>Single-document agents:</strong> section, page, region, table, and figure units with browse/crop/OCR/inspect/summarize/verify actions.</li>
+            <li><strong>Multi-document agents:</strong> document, page, region, and source units with search/compare/consolidate/verify actions.</li>
+            <li><strong>Visual web/GUI agents:</strong> screenshot, DOM element, and UI state evidence with plan/click/type/observe/verify actions.</li>
+            <li><strong>Video agentic RAG:</strong> frame, clip, scene, and event evidence with localize/retrieve/summarize/compare/verify actions.</li>
+            <li><strong>General multimodal agents:</strong> heterogeneous units across mixed sources with search, code, visual tools, retrieval, and verification.</li>
+          </ul>
+
+          <h2>9. Architectural patterns and components</h2>
+          <p>
+            The taxonomy identifies recurring patterns: reason-act-observe loops, retrieval as
+            action, planning and routing, planner-reader-verifier separation, hierarchical navigation, multi-agent
+            specialization, and grounded citation.
+          </p>
+
+          <div class="article-table-wrap">
+            <table class="article-table">
+              <caption>Components, trajectory roles, and associated failure modes.</caption>
+              <thead>
+                <tr>
+                  <th>Component</th>
+                  <th>Trajectory role</th>
+                  <th>Associated failure mode</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Evidence parser and index</td>
+                  <td>Converts documents, webpages, screenshots, tables, charts, frames, and clips into searchable units.</td>
+                  <td>The support exists but is inaccessible because of OCR, layout, table parsing, or temporal segmentation errors.</td>
+                </tr>
+                <tr>
+                  <td>Planner or policy controller</td>
+                  <td>Selects the next operation and target evidence unit under partial observability and budget constraints.</td>
+                  <td>The system selects the wrong unit, repeats actions, or stops before support is sufficient.</td>
+                </tr>
+                <tr>
+                  <td>Tool layer</td>
+                  <td>Executes retrieval, crop, zoom, OCR, table parsing, chart inspection, frame selection, calculation, or comparison.</td>
+                  <td>The selected tool is appropriate, but the target, crop boundary, parser setting, or time window is incorrect.</td>
+                </tr>
+                <tr>
+                  <td>Multimodal reader</td>
+                  <td>Interprets text, layout, image, table, chart, screenshot, frame, clip, or UI-state observations.</td>
+                  <td>The correct evidence is found, but the visible content is misread or the numerical/visual relation is misinterpreted.</td>
+                </tr>
+                <tr>
+                  <td>Memory and provenance</td>
+                  <td>Stores content, source identifiers, coordinates, timestamps, confidence, visited items, and rejected evidence.</td>
+                  <td>Support is summarized away, overwritten, detached from its source, or mixed with unsupported claims.</td>
+                </tr>
+                <tr>
+                  <td>Verifier or critic</td>
+                  <td>Checks support, sufficiency, grounding, and whether further search is needed.</td>
+                  <td>Unsupported claims pass when verification is text-only, shallow, or detached from multimodal evidence.</td>
+                </tr>
+                <tr>
+                  <td>Grounding and citation</td>
+                  <td>Links final claims to passages, pages, regions, cells, chart marks, frames, clips, events, or UI states.</td>
+                  <td>The citation points to a related document or page but not to the exact supporting evidence.</td>
+                </tr>
+                <tr>
+                  <td>Budget and stopping</td>
+                  <td>Tracks tool calls, retrieved units, VLM calls, context tokens, latency, monetary cost, and stopping decisions.</td>
+                  <td>Higher accuracy is obtained through broad search without a corresponding account of trajectory cost.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>10. Benchmarks and evaluation</h2>
+          <p>
+            The benchmark section separates answer quality from evidence-seeking behavior. A system can obtain a
+            correct final answer while using irrelevant evidence, excessive tool calls, or unsupported citations.
+            Conversely, it can retrieve the correct page or clip but fail at visual reading, numerical reasoning,
+            memory update, verification, or citation.
+          </p>
+          <p>
+            Across existing benchmark families, answer quality is usually measured more directly than evidence quality,
+            exact grounding, trajectory quality, or cost-aware utility. This creates an evaluation gap for systems whose
+            main behavior is not only answering, but deciding which multimodal evidence to inspect and cite.
+          </p>
+
+          <div class="article-table-wrap">
+            <table class="article-table">
+              <caption>Benchmark families through an Agentic MRAG lens.</caption>
+              <thead>
+                <tr>
+                  <th>Benchmark family</th>
+                  <th>Representative examples</th>
+                  <th>Evidence unit</th>
+                  <th>Citation target</th>
+                  <th>Trajectory signal</th>
+                  <th>Missing agentic signal</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Text QA / RAG</td>
+                  <td>NQ, HotpotQA, FEVER, KILT.</td>
+                  <td>Passage or sentence.</td>
+                  <td>Passage, sentence, or supporting fact.</td>
+                  <td>Partial.</td>
+                  <td>Tool choice, adaptive retrieval depth, and stopping decisions.</td>
+                </tr>
+                <tr>
+                  <td>Multimodal QA</td>
+                  <td>OK-VQA, WebQA, MultiModalQA, ScienceQA.</td>
+                  <td>Image, text, or table.</td>
+                  <td>Often answer-level or source-level.</td>
+                  <td>Limited.</td>
+                  <td>Iterative multimodal search and tool-use trajectory.</td>
+                </tr>
+                <tr>
+                  <td>Document QA</td>
+                  <td>DocVQA, InfographicVQA, MP-DocVQA, DUDE.</td>
+                  <td>Page, layout, visual text.</td>
+                  <td>Usually answer-level, page-level, or weakly localized.</td>
+                  <td>Limited.</td>
+                  <td>Page/region search path, evidence sufficiency, and citation support.</td>
+                </tr>
+                <tr>
+                  <td>Chart/table reasoning</td>
+                  <td>ChartQA, TAT-QA, FinQA.</td>
+                  <td>Chart, table, program.</td>
+                  <td>Table cell, chart element, or derivation step when available.</td>
+                  <td>Partial.</td>
+                  <td>Crop, parse, calculate, compare, and verify actions.</td>
+                </tr>
+                <tr>
+                  <td>Long document reasoning</td>
+                  <td>MMLongBench-Doc, LongDocURL.</td>
+                  <td>Long multimodal document.</td>
+                  <td>Document, page, or coarse span.</td>
+                  <td>Partial.</td>
+                  <td>Cost, memory update, cross-page navigation, and page/region decisions.</td>
+                </tr>
+                <tr>
+                  <td>Web/GUI agents</td>
+                  <td>WebArena, VisualWebArena, Mind2Web, OSWorld, AndroidLab, ScreenSpot-Pro.</td>
+                  <td>Webpage, screenshot, UI element, state.</td>
+                  <td>UI element, state, or task-completion trace.</td>
+                  <td>Stronger.</td>
+                  <td>Claim-level evidence support and cost-normalized citation.</td>
+                </tr>
+                <tr>
+                  <td>Video QA</td>
+                  <td>EgoSchema, Video-MME, MLVU, LongVideoBench.</td>
+                  <td>Frame, clip, event.</td>
+                  <td>Usually video-level, sometimes temporal segment.</td>
+                  <td>Limited.</td>
+                  <td>Frame/clip retrieval policy, temporal localization, and temporal citation.</td>
+                </tr>
+                <tr>
+                  <td>Agentic multimodal search</td>
+                  <td>MC-Search.</td>
+                  <td>Sub-question, modality, supporting fact, intermediate answer.</td>
+                  <td>Step-level supporting fact or evidence item.</td>
+                  <td>Stronger.</td>
+                  <td>Coverage across document, GUI, and video environments remains narrow.</td>
+                </tr>
+                <tr>
+                  <td>Agentic document QA</td>
+                  <td>MADQA.</td>
+                  <td>PDF collection.</td>
+                  <td>Document/page evidence with emerging trajectory annotations.</td>
+                  <td>Emerging.</td>
+                  <td>Accuracy-effort standards for document agents are still forming.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>Evaluation layers</h3>
+          <ul>
+            <li><strong>Answer quality:</strong> whether the final answer is correct and task-appropriate.</li>
+            <li><strong>Evidence quality:</strong> whether gathered evidence is relevant, diverse, nonredundant, and sufficient.</li>
+            <li><strong>Grounding quality:</strong> whether claims align with exact passages, pages, regions, table cells, frames, clips, events, or UI states.</li>
+            <li><strong>Trajectory quality:</strong> whether the selected tools and evidence units are appropriate under a realistic budget.</li>
+            <li><strong>Cost-aware utility:</strong> whether improvements are worth additional tokens, retrieval calls, VLM calls, latency, and monetary cost.</li>
+          </ul>
+
+          <h3>Trajectory score decomposition</h3>
+          <p>
+            A useful trajectory score should be decomposable. Otherwise, the benchmark may only report that an
+            agent failed, without showing where the failure happened.
+          </p>
+
+          <div class="article-table-wrap">
+            <table class="article-table">
+              <caption>Suggested decomposition of trajectory-level evaluation.</caption>
+              <thead>
+                <tr>
+                  <th>Sub-score</th>
+                  <th>Measures</th>
+                  <th>Typical failure exposed</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Search efficiency</td>
+                  <td>Whether the agent finds relevant units with a reasonable number of retrieval steps.</td>
+                  <td>Over-search, under-search, or repeated search over already visited evidence.</td>
+                </tr>
+                <tr>
+                  <td>Tool-use correctness</td>
+                  <td>Whether the chosen action matches the evidence type and information need.</td>
+                  <td>Using OCR when cropping is needed, or summarizing when calculation is needed.</td>
+                </tr>
+                <tr>
+                  <td>Evidence sufficiency</td>
+                  <td>Whether the gathered evidence is enough to support the final answer.</td>
+                  <td>Correct source but incomplete support.</td>
+                </tr>
+                <tr>
+                  <td>Localization accuracy</td>
+                  <td>Whether support is localized to the right page, region, cell, frame, clip, event, or UI state.</td>
+                  <td>Coarse citation that points to the right document but the wrong evidence unit.</td>
+                </tr>
+                <tr>
+                  <td>Verification correctness</td>
+                  <td>Whether the verifier accepts supported claims and rejects unsupported ones.</td>
+                  <td>Hallucinated or contradicted claims passing the critic.</td>
+                </tr>
+                <tr>
+                  <td>Stopping accuracy</td>
+                  <td>Whether the agent stops only when evidence is sufficient and cost is justified.</td>
+                  <td>Premature answering or unnecessary extra tool calls.</td>
+                </tr>
+                <tr>
+                  <td>Cost-normalized utility</td>
+                  <td>Whether quality gains justify tokens, tool calls, VLM calls, latency, and monetary cost.</td>
+                  <td>Brute-force retrieval presented as reasoning improvement.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>Metric definitions</h3>
+          <p>
+            The evaluation protocol uses explicit process metrics. Evidence precision measures the fraction of retrieved or
+            inspected units that support the answer. Evidence recall measures the fraction of gold support units found
+            by the trajectory. Support sufficiency checks whether cited evidence entails the answer claim.
+            Localization quality can be measured by exact page/cell match, spatial IoU for regions, or temporal IoU
+            for clips/events. Tool-use precision measures necessary actions over total actions. Unnecessary-action rate
+            captures wasted calls. Stopping accuracy checks whether the agent stops only when evidence is sufficient.
+          </p>
+
+          <h3>Failure diagnosis</h3>
+          <ul>
+            <li><strong>Search failure:</strong> the relevant unit is never selected.</li>
+            <li><strong>Inspection failure:</strong> the right unit is found but the wrong crop, tool, or parser is used.</li>
+            <li><strong>Reading failure:</strong> the model misinterprets visible evidence.</li>
+            <li><strong>Memory failure:</strong> relevant evidence is overwritten or summarized away.</li>
+            <li><strong>Verification failure:</strong> unsupported claims pass the critic.</li>
+            <li><strong>Citation failure:</strong> the final answer points to evidence that is relevant but insufficient.</li>
+          </ul>
+
+          <h2>11. Reporting protocol</h2>
+          <p>
+            The reporting protocol lists the information needed to compare evidence-seeking policies. It separates
+            system capability from budget usage and separates retrieval granularity from reader strength.
+          </p>
+
+          <div class="article-table-wrap">
+            <table class="article-table">
+              <caption>Minimum reporting items for Agentic MRAG systems.</caption>
+              <thead>
+                <tr>
+                  <th>Report item</th>
+                  <th>What to disclose</th>
+                  <th>Purpose</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Evidence space</td>
+                  <td>Text, pages, regions, tables, charts, frames, clips, webpages, UI states.</td>
+                  <td>Defines what the agent can search and cite.</td>
+                </tr>
+                <tr>
+                  <td>Retrieval unit and index</td>
+                  <td>Chunk/page/region/frame/clip; text, visual, hybrid, graph, or temporal index.</td>
+                  <td>Separates retrieval granularity from reader strength.</td>
+                </tr>
+                <tr>
+                  <td>Tool inventory</td>
+                  <td>OCR, crop, zoom, table parser, chart parser, calculator, frame selector, verifier.</td>
+                  <td>Makes action spaces comparable across systems.</td>
+                </tr>
+                <tr>
+                  <td>Budgets and cost</td>
+                  <td>Tool calls, retrieved units, VLM calls, context tokens, latency, monetary cost.</td>
+                  <td>Prevents brute-force search from being evaluated as strategic reasoning.</td>
+                </tr>
+                <tr>
+                  <td>Memory and provenance</td>
+                  <td>What is stored, how confidence is represented, whether rejected evidence is kept.</td>
+                  <td>Enables diagnosis of memory omissions and citation errors.</td>
+                </tr>
+                <tr>
+                  <td>Grounding granularity</td>
+                  <td>Passage, page, region, cell, chart mark, frame, clip, event, UI state.</td>
+                  <td>Determines whether cited evidence can support a claim.</td>
+                </tr>
+                <tr>
+                  <td>Trajectory log</td>
+                  <td>Actions, observations, selected evidence units, tool outputs, verification decisions, and stopping reason.</td>
+                  <td>Allows process-level auditing beyond final answer accuracy.</td>
+                </tr>
+                <tr>
+                  <td>Ablations</td>
+                  <td>Oracle retrieval, oracle reader, oracle verifier, no-memory, no-planner.</td>
+                  <td>Separates search failure from reading, reasoning, and verification failure.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>12. Open problems</h2>
+          <p>
+            <strong>Unified benchmarks for multimodal agentic behavior.</strong> Benchmarks should
+            jointly evaluate final answer quality, evidence relevance, exact visual/temporal grounding, tool-use
+            decisions, trajectory quality, and cost. Existing benchmarks cover fragments of this objective.
+          </p>
+          <p>
+            <strong>Trajectory supervision without overfitting.</strong> Step-wise labels provide supervision, but multiple
+            evidence-seeking paths may be valid for the same question. This distinction separates
+            support-equivalent trajectories from incorrect ones and emphasizes concise sufficient evidence rather than
+            a single canonical chain.
+          </p>
+          <p>
+            <strong>Region-level and temporal grounding.</strong> Page-level or video-level evidence is often too
+            coarse. Exact regions, table cells, chart marks, frames, clips, and events are grounding
+            targets that require annotation and evaluation beyond answer accuracy.
+          </p>
+          <p>
+            <strong>Visual hallucination and evidence verification.</strong> VLMs can produce plausible but unsupported
+            interpretations of charts, figures, screenshots, or frames. Multimodal verification can be decomposed
+            across textual entailment, table consistency, chart value extraction, visual grounding, UI-state validation,
+            and temporal localization.
+          </p>
+          <p>
+            <strong>Long-context memory and cost-aware inference.</strong> Iterative multimodal inference can involve
+            VLM calls, OCR, cropping, ASR, retrieval, and video processing. Cost-normalized performance and
+            provenance-aware memory are used to track source identifiers, coordinates, timestamps, confidence,
+            and rejected evidence.
+          </p>
+          <p>
+            <strong>Multi-document and multi-source conflict resolution.</strong> Real tasks can involve conflicting
+            reports, websites, papers, or videos. Claim-level evidence graphs, contradiction detection, and
+            source-reliability modeling are required mechanisms.
+          </p>
+          <p>
+            <strong>Security and adversarial evidence.</strong> Retrieved webpages, screenshots, document images, or
+            video frames may contain prompt-injection text, poisoned captions, misleading visual evidence, or
+            adversarial layout. Evidence sanitization, source isolation, provenance tracking, and verifiers that
+            distinguish task instructions from retrieved content are required directions.
+          </p>
+          <p>
+            <strong>Standardized trajectory logging.</strong> Different systems expose different levels of detail in
+            tool calls, observations, intermediate notes, and evidence provenance. Without a shared logging schema,
+            trajectory-level comparison remains difficult.
+          </p>
+
+          <h2>13. Conclusion</h2>
+          <p>
+            The survey's central shift is from retrieved context to evidence seeking. LLM-agent work provides action
+            and tool-use mechanisms; agentic RAG turns retrieval into policy; multimodal RAG expands evidence beyond
+            passages; visual document RAG moves retrieval to pages and regions; web and GUI agents expose action
+            grounding; document agents make documents navigable environments; and video agentic RAG extends the same
+            principle to temporal evidence.
+          </p>
+          <p>
+            Under this framing, future RAG systems are evaluated not only by final-answer accuracy, but also by how
+            they retrieve, inspect, verify, remember, stop, and cite multimodal evidence under cost and grounding
+            constraints.
+          </p>
+        </article>
+
+        <div class="article-footer">
+          <a href="../blog.html">&larr; Back to all posts</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    Research Blog Template &middot; Customized survey page
+  </footer>
+
+  <script>
+    const navbar = document.getElementById('navbar');
+
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 10);
+    });
+  </script>
+</body>
+</html>
