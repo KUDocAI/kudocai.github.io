@@ -83,13 +83,14 @@ Items use explicit `.tl-left` / `.tl-right` classes (not `nth-child`) because `.
 | Joongmin Shin | `shinjm-maker.github.io` |
 | Gyuho Shim | GitHub avatar (`avatars.githubusercontent.com`) |
 | Duong Tuan Thanh | `images/duong-tuan-thanh.png` (local) |
+| Taegun Youn | `images/Taegun_Youn.jpeg` (local) |
 
 ## Team Members
 - **PI:** Prof. Heuiseok Lim
 - **Professors:** Jaehyung Seo (Assistant), Chanjun Park (Assistant)
 - **Team Lead:** Joongmin Shin
 - **Co-Lead:** Gyuho Shim
-- **Member:** Duong Tuan Thanh
+- **Members:** Duong Tuan Thanh, Taegun Youn
 
 ## Publications on Site
 - REVISE — ACL 2025 Oral
