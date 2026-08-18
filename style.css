@@ -715,7 +715,8 @@ section { padding: 6rem 2rem; }
   margin-top: 0;
 }
 .tl-expanded .tl-expand {
-  max-height: 200px;
+  /* Overridden inline with the measured content height; this is the no-JS fallback. */
+  max-height: 1000px;
   opacity: 1;
   margin-top: 0.5rem;
 }

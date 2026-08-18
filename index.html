@@ -724,6 +724,14 @@
     updateFill(target);
   }
 
+  function syncExpandHeight(item) {
+    const panel = item.querySelector('.tl-expand');
+    if (!panel) return;
+    panel.style.maxHeight = item.classList.contains('tl-expanded')
+      ? panel.scrollHeight + 'px'
+      : '';
+  }
+
   function updateFill(activeItem) {
     const dot       = activeItem.querySelector('.tl-dot');
     const track     = timeline.querySelector('.tl-track');
@@ -742,6 +750,7 @@
         const wasExpanded = item.classList.contains('tl-expanded');
         items.forEach(el => el.classList.remove('tl-expanded'));
         if (!wasExpanded) item.classList.add('tl-expanded');
+        items.forEach(syncExpandHeight);
         setActive(item);
         setTimeout(() => updateFill(item), 360);
       }
@@ -771,6 +780,7 @@
 
   // Recalculate fill on resize
   window.addEventListener('resize', () => {
+    items.forEach(syncExpandHeight);
     const active = timeline.querySelector('.tl-item--active');
     if (active) updateFill(active);
   });
