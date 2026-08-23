@@ -22,7 +22,8 @@
   <meta property="twitter:description" content="Document AI research group at Korea University, turning unstructured documents into structured evidence for reliable reasoning and real-world AI." />
   <meta property="twitter:image" content="https://kudocai.github.io/images/og-image.png" />
   
-  <link rel="stylesheet" href="style.css?v=20" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="style.css?v=24" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,600;1,8..60,700&display=swap" rel="stylesheet" />
@@ -49,7 +50,11 @@
       <div class="nav-logo-mark">KU</div>
       <span class="nav-name">KUDoc</span>
     </a>
-    <ul class="nav-links">
+    <button class="nav-toggle" id="navToggle" type="button"
+            aria-label="Toggle navigation" aria-expanded="false" aria-controls="navLinks">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
       <li><a href="#home">Home</a></li>
       <li><a href="#research">Research</a></li>
       <li><a href="#team">Group</a></li>
@@ -113,7 +118,7 @@
         <div class="tl-track"><div class="tl-fill" id="tlFill"></div></div>
 
         <!-- PROJECT: left -->
-        <div class="tl-item tl-left" tabindex="0" data-type="project">
+        <div class="tl-item tl-left" tabindex="0" role="button" data-type="project">
           <div class="tl-body">
             <div class="tl-date"><span class="tl-icon">⚙️</span> 2024.03 – Present</div>
             <div class="tl-title">Synapse</div>
@@ -123,7 +128,7 @@
         </div>
 
         <!-- PAPER: right -->
-        <div class="tl-item tl-right" tabindex="0" data-type="paper">
+        <div class="tl-item tl-right" tabindex="0" role="button" aria-expanded="false" data-type="paper">
           <div class="tl-body">
             <div class="tl-date"><span class="tl-icon">📄</span> 2024.11</div>
             <div class="tl-title">EMNLP 2024</div>
@@ -138,7 +143,7 @@
         </div>
 
         <!-- PROJECT: left -->
-        <div class="tl-item tl-left" tabindex="0" data-type="project">
+        <div class="tl-item tl-left" tabindex="0" role="button" data-type="project">
           <div class="tl-body">
             <div class="tl-date"><span class="tl-icon">⚙️</span> 2025.01 – Present</div>
             <div class="tl-title">DocGraph Copilot</div>
@@ -148,7 +153,7 @@
         </div>
 
         <!-- PAPER: right -->
-        <div class="tl-item tl-right" tabindex="0" data-type="paper">
+        <div class="tl-item tl-right" tabindex="0" role="button" aria-expanded="false" data-type="paper">
           <div class="tl-body">
             <div class="tl-date"><span class="tl-icon">📄</span> 2025.05</div>
             <div class="tl-title">ACL 2025</div>
@@ -164,7 +169,7 @@
         </div>
 
         <!-- PAPER: right -->
-        <div class="tl-item tl-right" tabindex="0" data-type="paper">
+        <div class="tl-item tl-right" tabindex="0" role="button" aria-expanded="false" data-type="paper">
           <div class="tl-body">
             <div class="tl-date"><span class="tl-icon">📄</span> 2025.11</div>
             <div class="tl-title">EMNLP 2025</div>
@@ -181,7 +186,7 @@
         </div>
 
         <!-- PAPER: right -->
-        <div class="tl-item tl-right" tabindex="0" data-type="paper">
+        <div class="tl-item tl-right" tabindex="0" role="button" aria-expanded="false" data-type="paper">
           <div class="tl-body">
             <div class="tl-date"><span class="tl-icon">📄</span> 2026.06</div>
             <div class="tl-title">CVPR 2026</div>
@@ -196,7 +201,7 @@
         </div>
 
         <!-- PAPER: right (active) -->
-        <div class="tl-item tl-right tl-item--active" tabindex="0" data-type="paper">
+        <div class="tl-item tl-right tl-item--active" tabindex="0" role="button" aria-expanded="false" data-type="paper">
           <div class="tl-body">
             <div class="tl-date"><span class="tl-icon">📄</span> 2026.08</div>
             <div class="tl-title">ACL 2026</div>
@@ -284,13 +289,13 @@
     <div class="team-grid team-grid--wide">
 
       <div class="team-card">
-        <img class="team-avatar" src="images/shin_joongmin.png" alt="Joongmin Shin" />
+        <img class="team-avatar" src="images/shin_joongmin.png" alt="Joongmin Shin" width="130" height="130" loading="lazy" />
         <div class="team-info">
           <div class="team-role-group">
             <div class="team-role role-lead">Group Lead</div>
             <div class="team-role role-founder">Founder</div>
           </div>
-          <div class="team-name">Joongmin Shin</div>
+          <h3 class="team-name">Joongmin Shin</h3>
           <div class="team-affil">Multimodal AI Researcher · Human-Inspired AI Research</div>
           <div class="team-links">
             <a href="https://shinjm-maker.github.io/" target="_blank">Website</a>
@@ -302,15 +307,14 @@
       </div>
 
       <div class="team-card">
-        <img class="team-avatar" src="https://avatars.githubusercontent.com/u/76989110?v=4" alt="Gyuho Shim" />
+        <img class="team-avatar" src="https://avatars.githubusercontent.com/u/76989110?v=4" alt="Gyuho Shim" width="130" height="130" loading="lazy" />
         <div class="team-info">
           <div class="team-role-group">
             <div class="team-role role-lead">Co-Lead</div>
             <div class="team-role role-founder">Co-Founder</div>
           </div>
-          <div class="team-name">Gyuho Shim</div>
-          <div class="team-name-ko">심규호</div>
-          <div class="team-affil">M.S. · Korea University</div>
+          <h3 class="team-name">Gyuho Shim</h3>
+          <div class="team-affil">Makinarocks.ai</div>
           <div class="team-links">
             <a href="https://gyuhoshim.github.io" target="_blank">Website</a>
             <a href="https://github.com/gyuhoshim" target="_blank">GitHub</a>
@@ -321,11 +325,10 @@
       </div>
 
       <div class="team-card">
-        <img class="team-avatar" src="images/kang_myunghoon.jpeg" alt="Myunghoon Kang" />
+        <img class="team-avatar" src="images/kang_myunghoon.jpeg" alt="Myunghoon Kang" width="130" height="130" loading="lazy" />
         <div class="team-info">
           <div class="team-role">Member</div>
-          <div class="team-name">Myunghoon Kang</div>
-          <div class="team-name-ko">강명훈</div>
+          <h3 class="team-name">Myunghoon Kang</h3>
           <div class="team-affil">Ph.D. Student · Korea University</div>
           <div class="team-links">
             <a href="https://scholar.google.com/citations?user=sNu9_kUAAAAJ" target="_blank">Scholar</a>
@@ -334,10 +337,10 @@
       </div>
 
       <div class="team-card">
-        <img class="team-avatar" src="https://junkim100.github.io/profile_photo.jpg" alt="Dongjun Kim" />
+        <img class="team-avatar" src="https://junkim100.github.io/profile_photo.jpg" alt="Dongjun Kim" width="130" height="130" loading="lazy" />
         <div class="team-info">
           <div class="team-role">Member</div>
-          <div class="team-name">Dongjun Kim</div>
+          <h3 class="team-name">Dongjun Kim</h3>
           <div class="team-affil">AI Research Engineer · Upstage</div>
           <div class="team-links">
             <a href="https://junkim100.github.io" target="_blank">Website</a>
@@ -349,10 +352,10 @@
       </div>
 
       <div class="team-card">
-        <img class="team-avatar" src="images/duong-tuan-thanh.png" alt="Duong Tuan Thanh" />
+        <img class="team-avatar" src="images/duong-tuan-thanh.png" alt="Duong Tuan Thanh" width="130" height="130" loading="lazy" />
         <div class="team-info">
           <div class="team-role">Member</div>
-          <div class="team-name">Duong Tuan Thanh</div>
+          <h3 class="team-name">Duong Tuan Thanh</h3>
           <div class="team-affil">M.S. · Korea University</div>
           <div class="team-links">
             <a href="https://github.com/duongtuanthanh" target="_blank">GitHub</a>
@@ -361,10 +364,10 @@
       </div>
 
       <div class="team-card">
-        <img class="team-avatar" src="images/Taegun_Youn.jpeg" alt="Taegun Youn" />
+        <img class="team-avatar" src="images/Taegun_Youn.jpeg" alt="Taegun Youn" width="130" height="130" loading="lazy" />
         <div class="team-info">
           <div class="team-role">Member</div>
-          <div class="team-name">Taegun Youn</div>
+          <h3 class="team-name">Taegun Youn</h3>
           <div class="team-affil">M.S. · Korea University</div>
           <div class="team-links">
             <a href="https://www.linkedin.com/in/taegun-youn-60b7b7365/" target="_blank">LinkedIn</a>
@@ -393,7 +396,7 @@
 
       <div class="pub-card" id="pub-hikey">
         <span class="pub-venue venue-acl">ACL 2026 MAIN</span><span class="pub-tag-oral">Oral</span>
-        <div class="pub-title">HiKEY: Hierarchical Multimodal Retrieval for Open-Domain Document Question Answering</div>
+        <h3 class="pub-title"><a href="https://shinjm-maker.github.io/publications/hikey.html" target="_blank">HiKEY: Hierarchical Multimodal Retrieval for Open-Domain Document Question Answering</a></h3>
         <div class="pub-authors"><strong>Joongmin Shin</strong>, <strong>Gyuho Shim</strong>, Jeongbae Park, Jaehyung Seo, Heuiseok Lim</div>
         <div class="pub-desc">HiKEY introduces a hierarchical multimodal retrieval framework for open-domain document question answering, combining global routing, local ranking, and structured evidence assembly across long and visually complex documents.</div>
         <div class="pub-links"><a href="https://shinjm-maker.github.io/publications/hikey.html" target="_blank">Paper</a></div>
@@ -401,14 +404,14 @@
 
       <div class="pub-card">
         <span class="pub-venue venue-acl">ACL 2026 MAIN</span>
-        <div class="pub-title">EASE: Entity-Aware Sub-table Generation for Real-world Multi-table QA</div>
+        <h3 class="pub-title"><a href="https://aclanthology.org/2026.acl-long.10/" target="_blank">EASE: Entity-Aware Sub-table Generation for Real-world Multi-table QA</a></h3>
         <div class="pub-authors"><strong>Myunghoon Kang</strong>, Dahyun Jung, Suhyune Son, Seonmin Koo, Changwoo Chun, Yuna Hur</div>
         <div class="pub-desc">Proposes an entity-aware sub-table generation framework for question answering over real-world multi-table settings, addressing challenges of entity disambiguation and cross-table reasoning in structured document understanding.</div>
       </div>
 
       <div class="pub-card" id="pub-m3docdep">
         <span class="pub-venue venue-cvpr">CVPR 2026 MAIN</span>
-        <div class="pub-title">M3DocDep: Multi-modal, Multi-page, Multi-document Dependency Chunking with Large Vision-Language Models</div>
+        <h3 class="pub-title"><a href="https://shinjm-maker.github.io/publications/m3docdep.html" target="_blank">M3DocDep: Multi-modal, Multi-page, Multi-document Dependency Chunking with Large Vision-Language Models</a></h3>
         <div class="pub-authors"><strong>Joongmin Shin</strong>, Jeongbae Park, Jaehyung Seo, Heuiseok Lim</div>
         <div class="pub-desc">Introduces a dependency-aware chunking framework that leverages LVLMs to capture structural and semantic dependencies across multiple pages and documents for improved retrieval.</div>
         <div class="pub-links"><a href="https://shinjm-maker.github.io/publications/m3docdep.html" target="_blank">Paper</a></div>
@@ -416,7 +419,7 @@
 
       <div class="pub-card" id="pub-multidocfusion">
         <span class="pub-venue venue-emnlp">EMNLP 2025 MAIN</span>
-        <div class="pub-title">MultiDocFusion: Hierarchical and Multimodal Chunking Pipeline for Enhanced RAG on Long Industrial Documents</div>
+        <h3 class="pub-title"><a href="https://shinjm-maker.github.io/publications/multidocfusion.html" target="_blank">MultiDocFusion: Hierarchical and Multimodal Chunking Pipeline for Enhanced RAG on Long Industrial Documents</a></h3>
         <div class="pub-authors"><strong>Joongmin Shin</strong>, Chanjun Park, Jeongbae Park, Jaehyung Seo, Heuiseok Lim</div>
         <div class="pub-desc">Proposes a hierarchical multimodal chunking pipeline that integrates text, layout, and visual signals to boost RAG performance on long, complex industrial documents.</div>
         <div class="pub-links"><a href="https://shinjm-maker.github.io/publications/multidocfusion.html" target="_blank">Paper</a></div>
@@ -424,7 +427,7 @@
 
       <div class="pub-card" id="pub-revise">
         <span class="pub-venue venue-acl">ACL 2025 INDUSTRY</span><span class="pub-tag-oral">Oral</span>
-        <div class="pub-title">REVISE: A Framework for Revising OCRed Text in Practical Information Systems with Data Contamination Strategy</div>
+        <h3 class="pub-title"><a href="https://github.com/gyuhoshim/revise-ocr-correction" target="_blank">REVISE: A Framework for Revising OCRed Text in Practical Information Systems with Data Contamination Strategy</a></h3>
         <div class="pub-authors"><strong>Gyuho Shim</strong>, Seongtae Hong, Heuiseok Lim</div>
         <div class="pub-desc">Introduces a hierarchical taxonomy of OCR errors and a synthetic data contamination strategy that injects realistic OCR-like noise at the character, word, and structural level — enabling robust document reconstruction without costly real-error annotations.</div>
         <div class="pub-links"><a href="https://github.com/gyuhoshim/revise-ocr-correction" target="_blank">GitHub</a></div>
@@ -432,7 +435,7 @@
 
       <div class="pub-card" id="pub-styledfs">
         <span class="pub-venue venue-emnlp">EMNLP 2024 INDUSTRY</span>
-        <div class="pub-title">Intelligent Predictive Maintenance RAG Framework for Power Plants: Enhancing QA with StyleDFS and Domain-Specific Instruction Tuning</div>
+        <h3 class="pub-title"><a href="https://shinjm-maker.github.io/publications/styledfs.html" target="_blank">Intelligent Predictive Maintenance RAG Framework for Power Plants: Enhancing QA with StyleDFS and Domain-Specific Instruction Tuning</a></h3>
         <div class="pub-authors">Seongtae Hong, <strong>Joongmin Shin</strong>, Jaehyung Seo, Taemin Lee, Jeongbae Park, Heuiseok Lim</div>
         <div class="pub-desc">Presents a domain-specific RAG system for power plant maintenance QA, combining StyleDFS retrieval and instruction-tuned generation for industrial deployment.</div>
         <div class="pub-links"><a href="https://shinjm-maker.github.io/publications/styledfs.html" target="_blank">Paper</a></div>
@@ -445,7 +448,7 @@
 
       <div class="pub-card" id="pub-hclt2024">
         <span class="pub-venue venue-domestic">HCLT 2024</span>
-        <div class="pub-title">초거대 언어모델을 활용한 교육 도메인의 구조적 정보 추출</div>
+        <h3 class="pub-title"><a href="https://koreascience.kr/article/CFKO202404272003247.page" target="_blank">초거대 언어모델을 활용한 교육 도메인의 구조적 정보 추출</a></h3>
         <div class="pub-authors"><strong>Myunghoon Kang</strong></div>
         <div class="pub-desc">초거대 언어 모델을 활용하여 교육 도메인에서 구조화된 정보를 추출하는 과업을 제안한다. 교과서 단락 텍스트로부터 핵심어를 계층적으로 추출하는 평가 데이터셋을 구축하고, 오픈 소스 및 사유 LLM에 대한 In-Context Learning 방식의 평가를 진행한다.</div>
       </div>
@@ -459,40 +462,40 @@
 
       <div class="pub-card">
         <span class="pub-venue venue-acl">ACL 2026 MAIN</span><span class="pub-tag-oral">Oral</span>
-        <div class="pub-title">LangSAE Editing: Improving Multilingual Information Retrieval via Post-hoc Language Identity Removal</div>
+        <h3 class="pub-title"><a href="https://aclanthology.org/2026.acl-long.1685/" target="_blank">LangSAE Editing: Improving Multilingual Information Retrieval via Post-hoc Language Identity Removal</a></h3>
         <div class="pub-desc">Proposes a post-hoc language identity removal approach using sparse autoencoder editing to improve cross-lingual retrieval performance in multilingual language models.</div>
       </div>
 
       <div class="pub-card">
         <span class="pub-venue venue-acl">ACL 2026 FINDINGS</span>
-        <div class="pub-title">Exploring Coding Spot: Understanding Parametric Contributions to LLM Coding Performance</div>
+        <h3 class="pub-title"><a href="https://aclanthology.org/2026.findings-acl.1435/" target="_blank">Exploring Coding Spot: Understanding Parametric Contributions to LLM Coding Performance</a></h3>
         <div class="pub-authors"><strong>Dongjun Kim</strong>, Minhyuk Kim, Yong Chan Chun, Chanjun Park, Heuiseok Lim</div>
         <div class="pub-desc">Investigates which parameters within LLMs are responsible for coding capabilities through mechanistic analysis, offering insights for targeted fine-tuning and model understanding.</div>
       </div>
 
       <div class="pub-card">
         <span class="pub-venue venue-acl">ACL 2026 MAIN</span>
-        <div class="pub-title">MMAC: A Multilingual, Multimodal Alignment Framework for Cultural Grounding Evaluation</div>
+        <h3 class="pub-title"><a href="https://aclanthology.org/2026.acl-long.989/" target="_blank">MMAC: A Multilingual, Multimodal Alignment Framework for Cultural Grounding Evaluation</a></h3>
         <div class="pub-desc">Introduces a multilingual and multimodal alignment benchmark for evaluating cultural grounding in vision-language models across diverse linguistic and cultural contexts.</div>
       </div>
 
       <div class="pub-card">
         <span class="pub-venue venue-emnlp">EMNLP 2025 MAIN</span><span class="pub-tag-oral">Oral</span>
-        <div class="pub-title">Benchmark Profiling: Mechanistic Diagnosis of LLM Benchmarks</div>
+        <h3 class="pub-title"><a href="https://aclanthology.org/2025.emnlp-main.789/" target="_blank">Benchmark Profiling: Mechanistic Diagnosis of LLM Benchmarks</a></h3>
         <div class="pub-authors"><strong>Dongjun Kim</strong>, <strong>Gyuho Shim</strong>, Yong Chan Chun, Minhyuk Kim, Chanjun Park, Heuiseok Lim</div>
         <div class="pub-desc">Proposes a mechanistic diagnostic framework for LLM benchmark evaluation, identifying systematic failure modes and biases in standard benchmarks through profiling techniques.</div>
       </div>
 
       <div class="pub-card">
         <span class="pub-venue venue-emnlp">EMNLP 2025 FINDINGS</span>
-        <div class="pub-title">KoLEG: On-the-Fly Korean Legal Knowledge Editing with Continuous Retrieval</div>
+        <h3 class="pub-title"><a href="https://aclanthology.org/2025.findings-emnlp.489/" target="_blank">KoLEG: On-the-Fly Korean Legal Knowledge Editing with Continuous Retrieval</a></h3>
         <div class="pub-authors">Jaehyung Seo, Dahyun Jung, Jaewook Lee, Yong Chan Chun, <strong>Dongjun Kim</strong>, Hwijung Ryu, Donghoon Shin, Heuiseok Lim</div>
         <div class="pub-desc">Introduces a continuous retrieval framework for on-the-fly Korean legal knowledge editing, enabling dynamic updates to LLM knowledge bases in domain-specific legal contexts.</div>
       </div>
 
       <div class="pub-card">
         <span class="pub-venue venue-acl">ACL 2025 FINDINGS</span>
-        <div class="pub-title">Enhancing Automatic Term Extraction with Large Language Models via Syntactic Retrieval</div>
+        <h3 class="pub-title"><a href="https://aclanthology.org/2025.findings-acl.516/" target="_blank">Enhancing Automatic Term Extraction with Large Language Models via Syntactic Retrieval</a></h3>
         <div class="pub-authors">Yong Chan Chun, Minhyuk Kim, <strong>Dongjun Kim</strong>, Chanjun Park, Heuiseok Lim</div>
         <div class="pub-desc">Leverages syntactic retrieval with LLMs to improve automatic term extraction, achieving stronger precision and recall on domain-specific terminology identification tasks.</div>
       </div>
@@ -619,42 +622,42 @@
       <div class="institution-grid">
         <div class="institution-card institution-card--anchor">
           <div class="institution-logo-wrap">
-            <img class="institution-logo" src="images/institutions/korea-university.png" alt="Korea University logo" />
+            <img class="institution-logo" src="images/institutions/korea-university.png" alt="Korea University logo" loading="lazy" />
           </div>
           <div class="institution-role">Anchor Institution</div>
-          <div class="institution-name">Korea University</div>
+          <h3 class="institution-name">Korea University</h3>
           <div class="institution-meta">South Korea</div>
         </div>
         <div class="institution-card">
           <div class="institution-logo-wrap">
-            <img class="institution-logo institution-logo--square" src="images/institutions/konkuk-university-tight.png" alt="Konkuk University logo" />
+            <img class="institution-logo institution-logo--square" src="images/institutions/konkuk-university-tight.png" alt="Konkuk University logo" loading="lazy" />
           </div>
           <div class="institution-role">Collaborating Institution</div>
-          <div class="institution-name">Konkuk University</div>
+          <h3 class="institution-name">Konkuk University</h3>
           <div class="institution-meta">South Korea</div>
         </div>
         <div class="institution-card">
           <div class="institution-logo-wrap">
-            <img class="institution-logo" src="images/institutions/soongsil-university.png" alt="Soongsil University logo" />
+            <img class="institution-logo" src="images/institutions/soongsil-university.png" alt="Soongsil University logo" loading="lazy" />
           </div>
           <div class="institution-role">Collaborating Institution</div>
-          <div class="institution-name">Soongsil University</div>
+          <h3 class="institution-name">Soongsil University</h3>
           <div class="institution-meta">South Korea</div>
         </div>
         <div class="institution-card">
           <div class="institution-logo-wrap">
-            <img class="institution-logo" src="images/institutions/york-university-logo.jpg" alt="York University logo" />
+            <img class="institution-logo" src="images/institutions/york-university-logo.jpg" alt="York University logo" loading="lazy" />
           </div>
           <div class="institution-role">Collaborating Institution</div>
-          <div class="institution-name">York University</div>
+          <h3 class="institution-name">York University</h3>
           <div class="institution-meta">Canada</div>
         </div>
         <div class="institution-card">
           <div class="institution-logo-wrap">
-            <img class="institution-logo" src="images/institutions/sutd-dark.png" alt="SUTD logo" />
+            <img class="institution-logo" src="images/institutions/sutd-dark.png" alt="SUTD logo" loading="lazy" />
           </div>
           <div class="institution-role">Collaborating Institution</div>
-          <div class="institution-name">SUTD</div>
+          <h3 class="institution-name">SUTD</h3>
           <div class="institution-meta">Singapore University of Technology and Design · Singapore</div>
         </div>
       </div>
@@ -664,18 +667,18 @@
       <div class="institution-grid institution-grid--partners">
         <div class="institution-card institution-card--partner">
           <div class="institution-logo-wrap">
-            <img class="institution-logo" src="images/institutions/microsoft.png" alt="Microsoft logo" />
+            <img class="institution-logo" src="images/institutions/microsoft.png" alt="Microsoft logo" loading="lazy" />
           </div>
           <div class="institution-role">Collaborating Organization</div>
-          <div class="institution-name">Microsoft Asia</div>
+          <h3 class="institution-name">Microsoft Asia</h3>
           <div class="institution-meta">Corporate Research &amp; Technology</div>
         </div>
         <div class="institution-card institution-card--partner">
           <div class="institution-logo-wrap">
-            <img class="institution-logo institution-logo--icon" src="images/institutions/upstage.svg" alt="Upstage logo" />
+            <img class="institution-logo institution-logo--icon" src="images/institutions/upstage.svg" alt="Upstage logo" loading="lazy" />
           </div>
           <div class="institution-role">Collaborating Organization</div>
-          <div class="institution-name">Upstage</div>
+          <h3 class="institution-name">Upstage</h3>
           <div class="institution-meta">AI Company · South Korea</div>
         </div>
       </div>
@@ -713,6 +716,19 @@
     navbar.classList.toggle('scrolled', window.scrollY > 10);
   });
 
+  // Mobile menu
+  const navToggle = document.getElementById('navToggle');
+  const navLinks  = document.getElementById('navLinks');
+  navToggle.addEventListener('click', () => {
+    const open = navLinks.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', String(open));
+  });
+  navLinks.addEventListener('click', e => {
+    if (e.target.tagName !== 'A') return;
+    navLinks.classList.remove('open');
+    navToggle.setAttribute('aria-expanded', 'false');
+  });
+
   // ── Timeline interactivity ──────────────────────────────────────────
   const timeline = document.getElementById('milestoneTimeline');
   const fill     = document.getElementById('tlFill');
@@ -727,9 +743,9 @@
   function syncExpandHeight(item) {
     const panel = item.querySelector('.tl-expand');
     if (!panel) return;
-    panel.style.maxHeight = item.classList.contains('tl-expanded')
-      ? panel.scrollHeight + 'px'
-      : '';
+    const expanded = item.classList.contains('tl-expanded');
+    item.setAttribute('aria-expanded', String(expanded));
+    panel.style.maxHeight = expanded ? panel.scrollHeight + 'px' : '';
   }
 
   function updateFill(activeItem) {

@@ -6,10 +6,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Static GitHub Pages site for **KUDoc** — the Document AI research team at Korea University NLP&AI Lab. Deployed at `kudocai.github.io` from the `master` branch.
 
-Two files do all the work:
-- `index.html` — single-page site (nav, hero, research, team, publications, projects, contact)
+- `index.html` — main page (nav, hero, research, team, publications, projects, institutions, contact)
+- `faculty.html` / `blog.html` — advisors and blog index
+- `blogs/` — individual blog posts
 - `style.css` — all styles (no build step, no framework)
-- `images/` — local photos (only `duong-tuan-thanh.png` currently)
+- `images/` — local photos and institution logos; `images/og-image.png` is the link preview image
+- `favicon.svg` — KU mark used as the browser icon
 
 ## Deployment
 
@@ -56,7 +58,7 @@ The original `origin` remote (`gyuhoshim/kudoc`) still exists but is no longer t
 Items use explicit `.tl-left` / `.tl-right` classes (not `nth-child`) because `.tl-track` is a sibling that throws off nth-child counts.
 
 ```html
-<div class="tl-item tl-left" tabindex="0">
+<div class="tl-item tl-left" tabindex="0" role="button" data-type="project">
   <div class="tl-body">
     <div class="tl-date"><span class="tl-icon">⚙️</span> 2024.03 – Present</div>
     ...
@@ -64,9 +66,10 @@ Items use explicit `.tl-left` / `.tl-right` classes (not `nth-child`) because `.
   <div class="tl-dot"></div>
 </div>
 ```
-- Projects (ongoing) go **left** with `⚙️` icon
-- Papers (published) go **right** with `📄` icon
+- Projects (ongoing) go **left** with `⚙️` icon and `data-type="project"` (scrolls to Projects)
+- Papers (published) go **right** with `📄` icon and `data-type="paper"` (expands the paper list, needs `aria-expanded="false"`)
 - Grid layout: `tl-left` body in column 1, dot in column 2; `tl-right` dot in column 2, body in column 3
+- Expanded height is measured in JS (`syncExpandHeight`), so paper lists of any length show in full
 
 ### Team section
 - PI: single wide card (`.team-pi-card`)

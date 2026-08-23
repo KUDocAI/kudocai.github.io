@@ -28,7 +28,7 @@ Add a new publication to index.html. Collect all required info, then make the ed
 - Add a new `<li>` in `tl-expand-list` with a short paper description
 
 ### 3. If no milestone exists for this venue yet
-- Add a new `tl-item tl-right` with `data-type="paper"` for the new venue in chronological order
+- Add a new `tl-item` with `role="button" aria-expanded="false" data-type="paper"` for the new venue in chronological order
 
 ## After edits
 - Run /kudoc-push with an appropriate commit message

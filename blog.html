@@ -20,72 +20,11 @@
   <meta property="twitter:description" content="Research insights, updates, and notes from KUDoc, the Document AI research team at Korea University NLP&AI Lab." />
   <meta property="twitter:image" content="https://kudocai.github.io/images/og-image.png" />
   
-  <link rel="stylesheet" href="style.css?v=17" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="style.css?v=24" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,600;1,8..60,700&display=swap" rel="stylesheet" />
-  <style>
-    .blog-header {
-      max-width: 760px;
-      margin-bottom: 2rem;
-    }
-
-    .blog-header p {
-      margin: .75rem 0 0;
-      color: #666;
-      font-size: .98rem;
-      line-height: 1.7;
-    }
-
-    .blog-list {
-      display: grid;
-      gap: 1rem;
-      margin-top: 2rem;
-    }
-
-    .blog-card {
-      background: #fff;
-      border: 1px solid rgba(20,20,19,.08);
-      border-radius: 12px;
-      padding: 1.3rem 1.4rem;
-      transition: box-shadow .2s ease, transform .2s ease;
-    }
-
-    .blog-card:hover {
-      box-shadow: 0 8px 24px rgba(20,20,19,.08);
-      transform: translateY(-2px);
-    }
-
-    .blog-meta {
-      font-size: .82rem;
-      color: #888;
-      margin-bottom: .55rem;
-    }
-
-    .blog-title {
-      margin: 0 0 .55rem;
-      font-family: 'Source Serif 4', serif;
-      font-size: 1.28rem;
-      font-weight: 700;
-      line-height: 1.35;
-    }
-
-    .blog-title a {
-      color: var(--primary);
-      text-decoration: none;
-    }
-
-    .blog-title a:hover {
-      text-decoration: underline;
-    }
-
-    .blog-excerpt {
-      margin: 0;
-      color: #555;
-      font-size: .94rem;
-      line-height: 1.7;
-    }
-  </style>
 </head>
 <body>
 
@@ -96,7 +35,11 @@
       <div class="nav-logo-mark">KU</div>
       <span class="nav-name">KUDoc</span>
     </a>
-    <ul class="nav-links">
+    <button class="nav-toggle" id="navToggle" type="button"
+            aria-label="Toggle navigation" aria-expanded="false" aria-controls="navLinks">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
       <li><a href="index.html">Home</a></li>
       <li><a href="index.html#research">Research</a></li>
       <li><a href="index.html#team">Group</a></li>
@@ -164,6 +107,13 @@
   const navbar = document.getElementById('navbar');
   window.addEventListener('scroll', () => {
     navbar.classList.toggle('scrolled', window.scrollY > 10);
+  });
+
+  const navToggle = document.getElementById('navToggle');
+  const navLinks  = document.getElementById('navLinks');
+  navToggle.addEventListener('click', () => {
+    const open = navLinks.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', String(open));
   });
 </script>
 
