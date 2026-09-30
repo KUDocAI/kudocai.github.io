@@ -837,6 +837,7 @@ section { padding: 6rem 2rem; }
 .venue-cvpr   { background: #ecdee2; color: #78334a; }
 .venue-arxiv  { background: #ebe3d2; color: #6d5220; }
 .venue-coling { background: #e6dfec; color: #533d68; }
+.venue-neurips { background: #e0e8ea; color: #2d5560; }
 .venue-other  { background: var(--cream-dark); color: var(--text-muted); }
 
 .pub-title {
